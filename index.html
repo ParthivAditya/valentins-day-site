@@ -30,7 +30,7 @@ body{
   text-align:center;
 }
 
-/* Beating heart */
+/* Heart */
 .top-heart{
   position:fixed;
   top:25px;
@@ -51,7 +51,7 @@ body{
 .top-heart::after{left:30px}
 
 @keyframes beat{
-  50%{transform:translateX(-50%) rotate(-45deg) scale(1.05)}
+  50%{transform:translateX(-50%) rotate(-45deg) scale(1.06)}
 }
 
 /* Card */
@@ -59,7 +59,7 @@ body{
   position:absolute;
   top:50%;left:50%;
   transform:translate(-50%,-50%);
-  width:360px;height:520px;
+  width:360px;height:560px;
   background:#fffaf3;
   border-radius:28px;
   padding:26px;
@@ -74,9 +74,9 @@ body{
 /* Book */
 .book{
   margin:25px auto;
-  width:260px;height:190px;
+  width:280px;height:260px;
   background:#fffdf7;
-  border-radius:14px;
+  border-radius:16px;
   overflow:hidden;
   box-shadow:0 15px 25px rgba(0,0,0,.15);
   position:relative;
@@ -84,16 +84,16 @@ body{
 .pages{
   display:flex;
   height:100%;
-  transition:transform .6s ease;
+  transition:transform .7s ease;
 }
 .page{
   min-width:100%;
-  padding:18px;
+  padding:20px;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
-  font-size:14px;
+  font-size:15px;
   line-height:1.6;
 }
 
@@ -101,19 +101,20 @@ body{
 .turn{
   position:absolute;
   bottom:8px;
-  right:14px;
   font-family:'Pacifico',cursive;
   font-size:14px;
   color:#ff4d6d;
   cursor:pointer;
   transition:.3s;
 }
+.turn.next{right:14px}
+.turn.prev{left:14px}
 .turn:hover{
   text-shadow:0 0 8px rgba(255,77,109,.6);
 }
 
-/* Floating effects */
-.float, .fall{
+/* Floating */
+.float,.fall{
   position:absolute;
   animation:move linear infinite;
 }
@@ -140,35 +141,44 @@ footer{
 
 <div class="card">
 <h1>My Love ❤️</h1>
-<p>This is our little love book.<br>Come back every day 💌</p>
+<p>Our Valentine Week Book 💌</p>
 
 <div class="book">
 <div class="pages" id="pages">
 
 <div class="page">
 My Love ❤️<br><br>
-This is our little love book.<br>
-Come back every day…<br>
-I’ll turn a new page for you 💌
+This little book is only for you.<br>
+Every day a new page,<br>
+every page a new feeling 💖
 </div>
 
 <div class="page" id="rose"></div>
 <div class="page" id="propose"></div>
 <div class="page" id="choco"></div>
+<div class="page" id="teddy"></div>
+<div class="page" id="promise"></div>
+<div class="page" id="kiss"></div>
 <div class="page" id="valentine"></div>
 
 </div>
-<div class="turn" onclick="turnPage()">Turn Page ➜</div>
+
+<div class="turn prev" onclick="prevPage()">⬅ Previous</div>
+<div class="turn next" onclick="nextPage()">Turn Page ➜</div>
+
 </div>
 </div>
 
 <footer>From your man, <b>Parthiv Aditya</b> ❤️</footer>
 
 <script>
-const dates={
+const days={
   rose:new Date("2026-02-07"),
   propose:new Date("2026-02-08"),
   choco:new Date("2026-02-09"),
+  teddy:new Date("2026-02-10"),
+  promise:new Date("2026-02-11"),
+  kiss:new Date("2026-02-13"),
   valentine:new Date("2026-02-14")
 };
 
@@ -179,22 +189,33 @@ function format(d){
 
 setInterval(()=>{
   const now=new Date();
+
   countdown.innerHTML=
   "Countdown to Valentine’s Day ❤️<br>"+
-  format(dates.valentine-now);
+  format(days.valentine-now);
 
-  rose.innerHTML="🌹 Rose Day<br>"+format(dates.rose-now);
-  propose.innerHTML="💍 Propose Day<br>"+format(dates.propose-now);
-  choco.innerHTML="🍫 Chocolate Day<br>"+format(dates.choco-now);
-  valentine.innerHTML="❤️ Valentine’s Day<br>"+format(dates.valentine-now);
+  rose.innerHTML="🌹 Rose Day<br>"+format(days.rose-now);
+  propose.innerHTML="💍 Propose Day<br>"+format(days.propose-now);
+  choco.innerHTML="🍫 Chocolate Day<br>"+format(days.choco-now);
+  teddy.innerHTML="🧸 Teddy Day<br>"+format(days.teddy-now);
+  promise.innerHTML="🤝 Promise Day<br>"+format(days.promise-now);
+  kiss.innerHTML="💋 Kiss Day<br>"+format(days.kiss-now);
+  valentine.innerHTML="❤️ Valentine’s Day<br>"+format(days.valentine-now);
 },1000);
 
 let page=0;
-function turnPage(){
-  const p=document.getElementById("pages");
-  if(page<p.children.length-1){
+const pages=document.getElementById("pages");
+
+function nextPage(){
+  if(page<pages.children.length-1){
     page++;
-    p.style.transform=`translateX(-${page*100}%)`;
+    pages.style.transform=`translateX(-${page*100}%)`;
+  }
+}
+function prevPage(){
+  if(page>0){
+    page--;
+    pages.style.transform=`translateX(-${page*100}%)`;
   }
 }
 
@@ -204,7 +225,7 @@ setInterval(()=>{
   e.className=Math.random()>.5?"float":"fall";
   e.innerHTML=Math.random()>.6?"❤️":Math.random()>.5?"❄️":"🌹";
   e.style.left=Math.random()*100+"vw";
-  e.style.fontSize=(12+Math.random()*16)+"px";
+  e.style.fontSize=(12+Math.random()*18)+"px";
   e.style.animationDuration=(5+Math.random()*6)+"s";
   document.body.appendChild(e);
   setTimeout(()=>e.remove(),12000);
