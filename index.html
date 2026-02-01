@@ -2,241 +2,300 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>My Love 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-/* ====== BASE ====== */
+*{margin:0;padding:0;box-sizing:border-box}
+
 body{
-  margin:0;
-  font-family:"Poppins",sans-serif;
-  background:linear-gradient(135deg,#ffb6c1,#ffd6d6);
+  height:100vh;
   overflow:hidden;
+  background:linear-gradient(180deg,#ffb3b3,#ffd6cc);
+  font-family:'Poppins',sans-serif;
 }
 
-/* ====== FLOATING HEARTS ====== */
-.heart{
+/* Countdown */
+#countdown{
+  position:fixed;
+  top:10px;
+  right:10px;
+  background:rgba(255,255,255,.9);
+  padding:8px 12px;
+  border-radius:14px;
+  font-size:12px;
+  font-weight:600;
+  color:#ff3b6b;
+  z-index:20;
+  text-align:center;
+}
+
+/* Heart */
+.top-heart{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%) rotate(-45deg);
+  width:42px;height:42px;
+  background:#ff4d6d;
+  animation:beat 2.5s infinite;
+}
+.top-heart::before,.top-heart::after{
+  content:"";
+  width:42px;height:42px;
+  background:#ff4d6d;
+  border-radius:50%;
   position:absolute;
-  color:#ff4d6d;
-  font-size:18px;
-  animation:float 6s linear infinite;
 }
-@keyframes float{
-  0%{transform:translateY(100vh);opacity:0;}
-  10%{opacity:1;}
-  100%{transform:translateY(-10vh);opacity:0;}
+.top-heart::before{top:-21px}
+.top-heart::after{left:21px}
+
+@keyframes beat{
+  50%{transform:translateX(-50%) rotate(-45deg) scale(1.08)}
 }
 
-/* ====== ROSE PETALS ====== */
-.petal{
+/* Card */
+.card{
   position:absolute;
-  width:12px;
-  height:12px;
-  background:#ff6f91;
-  border-radius:50% 50% 50% 0;
-  transform:rotate(45deg);
-  animation:fall 8s linear infinite;
-}
-@keyframes fall{
-  from{top:-10%;opacity:1;}
-  to{top:110%;transform:translateX(100px) rotate(360deg);opacity:0;}
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:92vw;
+  max-width:360px;
+  height:82vh;
+  background:#fffaf3;
+  border-radius:26px;
+  padding:18px;
+  box-shadow:0 25px 45px rgba(0,0,0,.18);
+  text-align:center;
 }
 
-/* ====== BOOK ====== */
+.card h1{
+  font-family:'Pacifico',cursive;
+  color:#ff5e78;
+  font-size:24px;
+}
+
+/* Book */
 .book{
-  width:320px;
-  height:520px;
-  margin:40px auto;
-  background:#fff7ed;
-  border-radius:20px;
-  box-shadow:0 20px 40px rgba(0,0,0,0.25);
+  margin-top:15px;
+  width:100%;
+  height:65%;
+  background:#fffdf7;
+  border-radius:18px;
   overflow:hidden;
+  box-shadow:0 15px 25px rgba(0,0,0,.15);
   position:relative;
 }
 
-/* ====== HEART BEAT ====== */
-.beat{
-  text-align:center;
-  font-size:30px;
-  animation:beat 1.2s infinite;
-}
-@keyframes beat{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.2);}
-  100%{transform:scale(1);}
-}
-
-/* ====== PAGES ====== */
 .pages{
   display:flex;
   height:100%;
-  transition:transform .6s ease;
+  transition:transform .7s ease;
 }
+
 .page{
   min-width:100%;
-  padding:25px;
-  box-sizing:border-box;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  line-height:1.6;
   text-align:center;
 }
-.page h2{
+
+/* Titles & timers */
+.page-title{
+  font-weight:600;
   color:#ff4d6d;
+  margin-bottom:6px;
+  font-size:16px;
 }
-.page .content{
-  margin-top:20px;
-  font-size:15px;
-  line-height:1.6;
-}
-.locked .content{
-  filter:blur(6px);
-}
-.timer{
-  margin-top:15px;
-  font-size:13px;
-  color:#666;
+.page-timer{
+  font-size:12px;
+  color:#555;
+  margin-bottom:12px;
 }
 
-/* ====== COMMENT BOX ====== */
-textarea{
-  width:100%;
-  height:120px;
-  border-radius:12px;
-  border:1px solid #ccc;
-  padding:10px;
-  font-family:inherit;
-}
+/* Blur lock */
+.page-content{transition:filter .6s ease}
+.locked .page-content{filter:blur(6px)}
 
-/* ====== NAV ====== */
-.nav{
+/* Navigation */
+.turn{
   position:absolute;
   bottom:10px;
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  padding:0 20px;
-}
-button{
-  border:none;
-  padding:8px 16px;
-  border-radius:20px;
-  background:#ff4d6d;
-  color:#fff;
+  font-family:'Pacifico',cursive;
+  font-size:14px;
+  color:#ff4d6d;
   cursor:pointer;
+}
+.turn.prev{left:14px}
+.turn.next{right:14px}
+
+/* Footer */
+footer{
+  position:fixed;
+  bottom:10px;
+  width:100%;
+  text-align:center;
+  font-size:14px;
+  color:#8b0000;
 }
 </style>
 </head>
 
 <body>
 
+<div id="countdown"></div>
+<div class="top-heart"></div>
+
+<div class="card">
+<h1>My Love ❤️</h1>
+
 <div class="book">
-  <div class="beat">❤️</div>
+<div class="pages" id="pages">
 
-  <div class="pages" id="pages">
-
-    <!-- DAY TEMPLATE -->
-    <div class="page locked" data-date="2026-02-07">
-      <h2>Rose Day 🌹</h2>
-      <div class="content">A rose for every reason I love you 💕</div>
-      <div class="timer" id="t0"></div>
-    </div>
-
-    <div class="page locked" data-date="2026-02-08">
-      <h2>Propose Day 💍</h2>
-      <div class="content">I’d choose you in every lifetime ❤️</div>
-      <div class="timer" id="t1"></div>
-    </div>
-
-    <div class="page locked" data-date="2026-02-09">
-      <h2>Chocolate Day 🍫</h2>
-      <div class="content">Sweeter than chocolate, that’s you 😘</div>
-      <div class="timer" id="t2"></div>
-    </div>
-
-    <div class="page locked" data-date="2026-02-10">
-      <h2>Teddy Day 🧸</h2>
-      <div class="content">I wish I could hug you right now 🤗</div>
-      <div class="timer" id="t3"></div>
-    </div>
-
-    <div class="page locked" data-date="2026-02-11">
-      <h2>Promise Day 🤞</h2>
-      <div class="content">I promise to never stop loving you 💞</div>
-      <div class="timer" id="t4"></div>
-    </div>
-
-    <div class="page locked" data-date="2026-02-13">
-      <h2>Kiss Day 💋</h2>
-      <div class="content">Saving all my kisses just for you 😘</div>
-      <div class="timer" id="t5"></div>
-    </div>
-
-    <div class="page locked" data-date="2026-02-14">
-      <h2>Valentine’s Day 💖</h2>
-      <div class="content">You are my forever ❤️</div>
-      <div class="timer" id="t6"></div>
-    </div>
-
-    <!-- LAST PAGE -->
-    <div class="page">
-      <h2>Your Feelings 💌</h2>
-      <textarea placeholder="Write your heart here..."></textarea>
-    </div>
-
-  </div>
-
-  <div class="nav">
-    <button onclick="prev()">◀</button>
-    <button onclick="next()">▶</button>
+<div class="page">
+  <div class="page-content">
+    My Love ❤️<br><br>
+    This is our little love book 💖<br>
+    Come back every day…<br>
+    A new page will unlock ✨
   </div>
 </div>
 
-<script>
-/* ====== PAGE SLIDE ====== */
-let idx=0;
-const pages=document.getElementById("pages");
-function next(){ if(idx<pages.children.length-1){idx++;pages.style.transform=`translateX(-${idx*100}%)`;}}
-function prev(){ if(idx>0){idx--;pages.style.transform=`translateX(-${idx*100}%)`;}}
+<div class="page locked" data-date="2026-02-07">
+  <div class="page-title">🌹 Rose Day</div>
+  <div class="page-timer" id="rose"></div>
+  <div class="page-content">A rose from my heart to yours ❤️</div>
+</div>
 
-/* ====== COUNTDOWN + UNLOCK ====== */
-function update(){
-  const now=new Date();
-  document.querySelectorAll(".page").forEach((p,i)=>{
-    const d=p.dataset.date;
-    if(!d) return;
-    const diff=new Date(d)-now;
-    const t=document.getElementById("t"+i);
-    if(diff<=0){
+<div class="page locked" data-date="2026-02-08">
+  <div class="page-title">💍 Propose Day</div>
+  <div class="page-timer" id="propose"></div>
+  <div class="page-content">Will you be mine forever? 💖</div>
+</div>
+
+<div class="page locked" data-date="2026-02-09">
+  <div class="page-title">🍫 Chocolate Day</div>
+  <div class="page-timer" id="choco"></div>
+  <div class="page-content">Sweet like chocolate, just like you 🍫</div>
+</div>
+
+<div class="page locked" data-date="2026-02-10">
+  <div class="page-title">🧸 Teddy Day</div>
+  <div class="page-timer" id="teddy"></div>
+  <div class="page-content">A teddy hug from me to you 🧸</div>
+</div>
+
+<div class="page locked" data-date="2026-02-11">
+  <div class="page-title">🤝 Promise Day</div>
+  <div class="page-timer" id="promise"></div>
+  <div class="page-content">I promise you my forever ❤️</div>
+</div>
+
+<div class="page locked" data-date="2026-02-13">
+  <div class="page-title">💋 Kiss Day</div>
+  <div class="page-timer" id="kiss"></div>
+  <div class="page-content">A kiss sealed with love 😘</div>
+</div>
+
+<div class="page locked" data-date="2026-02-14">
+  <div class="page-title">❤️ Valentine’s Day</div>
+  <div class="page-timer" id="valentine"></div>
+  <div class="page-content">You are my always ❤️</div>
+</div>
+
+<div class="page locked" data-date="2026-02-14">
+  <div class="page-title">💌 My Heart</div>
+  <div class="page-timer">Unlocks on Valentine’s Day ❤️</div>
+  <div class="page-content">
+    From the first smile to every fight,<br>
+    every laugh to every silence —<br>
+    I choose you, always ❤️<br><br>
+    <textarea placeholder="Write your feelings here… 💕"
+      style="width:100%;height:90px;border-radius:12px;
+      border:1px solid #ffb3b3;padding:10px;font-family:Poppins;resize:none;"></textarea>
+  </div>
+</div>
+
+</div>
+
+<div class="turn prev" onclick="prevPage()">← Previous</div>
+<div class="turn next" onclick="nextPage()">Turn →</div>
+</div>
+</div>
+
+<footer>From your man, <b>Parthiv Aditya</b> ❤️</footer>
+
+<script>
+const pages=document.getElementById("pages");
+let index=0;
+
+function nextPage(){
+  if(index < pages.children.length-1){
+    index++;
+    pages.style.transform = `translateX(-${index*100}%)`;
+  }
+}
+
+function prevPage(){
+  if(index>0){
+    index--;
+    pages.style.transform = `translateX(-${index*100}%)`;
+  }
+}
+
+function timeLeft(date){
+  const diff=new Date(date)-new Date();
+  if(diff<=0) return "Unlocked ❤️";
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor(diff%86400000/3600000);
+  const m=Math.floor(diff%3600000/60000);
+  const s=Math.floor(diff%60000/1000);
+  return `${d}d ${h}h ${m}m ${s}s`;
+}
+
+const map={
+  rose:"2026-02-07",
+  propose:"2026-02-08",
+  choco:"2026-02-09",
+  teddy:"2026-02-10",
+  promise:"2026-02-11",
+  kiss:"2026-02-13",
+  valentine:"2026-02-14"
+};
+
+setInterval(()=>{
+  document.getElementById("countdown").innerHTML=
+    "Valentine 💖<br>"+timeLeft("2026-02-14");
+
+  for(const id in map){
+    const el=document.getElementById(id);
+    if(el) el.innerText=timeLeft(map[id]);
+  }
+
+  document.querySelectorAll(".page.locked").forEach(p=>{
+    if(new Date()>=new Date(p.dataset.date)){
       p.classList.remove("locked");
-      t.innerText="Unlocked ❤️";
-    }else{
-      const D=Math.floor(diff/86400000);
-      const H=Math.floor(diff%86400000/3600000);
-      const M=Math.floor(diff%3600000/60000);
-      const S=Math.floor(diff%60000/1000);
-      t.innerText=`${D}d ${H}h ${M}m ${S}s`;
     }
   });
-}
-setInterval(update,1000);
+},1000);
 
-/* ====== HEARTS ====== */
-setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart";
-  h.innerText="❤";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=4+Math.random()*4+"s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),7000);
-},500);
+/* Save message */
+document.addEventListener("input",e=>{
+  if(e.target.tagName==="TEXTAREA")
+    localStorage.setItem("loveComment",e.target.value);
+});
 
-/* ====== PETALS ====== */
-setInterval(()=>{
-  const p=document.createElement("div");
-  p.className="petal";
-  p.style.left=Math.random()*100+"vw";
-  document.body.appendChild(p);
-  setTimeout(()=>p.remove(),8000);
-},700);
+window.onload=()=>{
+  const t=document.querySelector("textarea");
+  if(t) t.value=localStorage.getItem("loveComment")||"";
+};
 </script>
 
 </body>
