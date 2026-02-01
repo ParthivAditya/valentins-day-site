@@ -7,7 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
 
 body{
   height:100vh;
@@ -15,7 +20,7 @@ body{
   background:linear-gradient(180deg,#ffb3b3,#ffd6cc);
 }
 
-/* Global Countdown */
+/* Countdown */
 #countdown{
   position:fixed;
   top:15px;
@@ -28,90 +33,120 @@ body{
   z-index:10;
 }
 
-/* Heart */
+/* Top heart */
 .top-heart{
   position:fixed;
-  top:20px;
+  top:25px;
   left:50%;
   transform:translateX(-50%) rotate(-45deg);
-  width:70px;height:70px;
+  width:65px;
+  height:65px;
   background:#ff4d6d;
-  animation:beat 2.2s infinite;
+  animation:beat 2.5s infinite ease-in-out;
 }
-.top-heart::before,.top-heart::after{
-  content:"";width:70px;height:70px;
-  background:#ff4d6d;border-radius:50%;
+.top-heart::before,
+.top-heart::after{
+  content:"";
+  width:65px;
+  height:65px;
+  background:#ff4d6d;
+  border-radius:50%;
   position:absolute;
 }
-.top-heart::before{top:-35px}
-.top-heart::after{left:35px}
+.top-heart::before{ top:-32px; left:0; }
+.top-heart::after{ left:32px; top:0; }
+
 @keyframes beat{
-  0%,100%{transform:translateX(-50%) rotate(-45deg) scale(1)}
-  50%{transform:translateX(-50%) rotate(-45deg) scale(1.08)}
+  50%{ transform:translateX(-50%) rotate(-45deg) scale(1.06); }
 }
 
-/* Card */
+/* Center Card */
 .card{
   position:absolute;
-  top:50%;left:50%;
+  top:50%;
+  left:50%;
   transform:translate(-50%,-50%);
-  width:350px;height:500px;
+  width:360px;
+  height:520px;
   background:#fffaf3;
   border-radius:28px;
-  box-shadow:0 30px 50px rgba(0,0,0,.2);
-  padding:30px;
+  box-shadow:0 30px 50px rgba(0,0,0,.18);
+  padding:28px;
   text-align:center;
 }
 
 .card h1{
   font-family:'Pacifico',cursive;
   color:#ff5e78;
+  margin-bottom:10px;
 }
 
 /* Book */
 .book{
-  margin:30px auto;
-  width:260px;height:180px;
-  perspective:1200px;
-  cursor:pointer;
-}
-
-.page-wrap{
-  width:100%;height:100%;
   position:relative;
-  transform-style:preserve-3d;
-  transition:1s;
+  margin:25px auto;
+  width:260px;
+  height:180px;
+  overflow:hidden;
+  border-radius:12px;
+  background:#fffdf7;
+  box-shadow:0 12px 25px rgba(0,0,0,.15);
 }
 
+/* Pages container */
+.pages{
+  display:flex;
+  width:100%;
+  height:100%;
+  transition:transform .6s ease-in-out;
+}
+
+/* Single page */
 .page{
-  position:absolute;
-  width:50%;height:100%;
-  background:#fffdf7;
-  box-shadow:inset 0 0 12px rgba(0,0,0,.1);
+  min-width:100%;
+  height:100%;
+  padding:18px;
+  font-size:14px;
+  line-height:1.7;
   display:flex;
   align-items:center;
   justify-content:center;
-  flex-direction:column;
-  padding:14px;
-  font-size:13px;
+  text-align:center;
   color:#444;
 }
 
-.left{left:0;border-right:1px solid #eee}
-.right{
-  right:0;
-  transform-origin:left;
-  transition:1s;
+/* Turn button */
+.turn-btn{
+  position:absolute;
+  bottom:8px;
+  right:10px;
+  background:#ff5e78;
+  color:white;
+  border:none;
+  padding:6px 12px;
+  border-radius:14px;
+  font-size:12px;
+  cursor:pointer;
 }
 
-.book.flipped .right{
-  transform:rotateY(-180deg);
+/* Floating hearts */
+.floating-heart{
+  position:absolute;
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+  from{ transform:translateY(100vh) scale(.6); }
+  to{ transform:translateY(-10vh) scale(1); }
 }
 
-.page small{
-  margin-top:10px;
-  color:#ff5e78;
-  font-weight:500;
+/* Snow & petals */
+.fall{
+  position:absolute;
+  top:-20px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{ transform:translateY(110vh) rotate(360deg); }
 }
 
 /* Footer */
@@ -132,71 +167,77 @@ footer{
 <div class="top-heart"></div>
 
 <div class="card">
-  <h1>Our Love Book ❤️</h1>
-  <p>One page unlocks every day 💌</p>
+  <h1>My Love ❤️</h1>
+  <p>This is our little love book.</p>
+  <p>Come back every day…<br>I’ll turn a new page for you 💌</p>
 
-  <div class="book" onclick="flipBook()">
-    <div class="page-wrap">
-      <div class="page left">
-        <span id="leftText">Loading…</span>
-        <small id="leftTimer"></small>
+  <div class="book">
+    <div class="pages" id="pages">
+      <!-- Page 1 -->
+      <div class="page">
+        My Love ❤️<br><br>
+        This is our little love book.<br>
+        Come back every day…<br>
+        I’ll turn a new page for you 💌
       </div>
-      <div class="page right">
-        <span id="rightText">Coming Soon…</span>
-        <small id="rightTimer"></small>
-      </div>
+
+      <!-- Other pages -->
+      <div class="page">Coming Soon 💌</div>
+      <div class="page">Coming Soon 💌</div>
+      <div class="page">Coming Soon 💌</div>
+      <div class="page">Coming Soon 💌</div>
     </div>
-  </div>
 
-  <p style="font-size:13px;color:#777">Tap the book to flip 📖</p>
+    <button class="turn-btn" onclick="turnPage()">Turn ➜</button>
+  </div>
 </div>
 
 <footer>From your man, <b>Parthiv Aditya</b> ❤️</footer>
 
 <script>
-/* Global Countdown */
-const finalDate=new Date("2026-02-14T00:00:00");
+/* Valentine Countdown */
+const target = new Date("2026-02-14T00:00:00");
 setInterval(()=>{
-  const d=finalDate-new Date();
-  countdown.innerHTML=d<=0?"Forever ♾️":
+  const d = target - new Date();
+  countdown.innerHTML = d<=0 ? "Forever ♾️" :
   `${Math.floor(d/86400000)}d ${Math.floor(d/3600000)%24}h`;
 },1000);
 
-/* Love Pages */
-const pages=[
-  "The day I met you 💖",
-  "Your smile calms my soul 🌸",
-  "Every heartbeat whispers your name ❤️",
-  "You are my safe place 🫶",
-  "I choose you. Always. ♾️"
-];
+/* Page sliding */
+let currentPage = 0;
+const pages = document.getElementById("pages");
+const totalPages = pages.children.length;
 
-const startDate=new Date("2026-02-01");
-const today=new Date();
-const currentDay=Math.floor((today-startDate)/86400000);
-
-function pageContent(index,textEl,timeEl){
-  const unlock=new Date(startDate);
-  unlock.setDate(startDate.getDate()+index);
-
-  if(today>=unlock){
-    textEl.innerText=pages[index] || "Our story never ends 💞";
-    timeEl.innerText="Unlocked ❤️";
-  }else{
-    const diff=unlock-today;
-    textEl.innerText="Coming Soon 💌";
-    timeEl.innerText=
-      `${Math.floor(diff/86400000)}d ${Math.floor(diff/3600000)%24}h remaining`;
+function turnPage(){
+  if(currentPage < totalPages - 1){
+    currentPage++;
+    pages.style.transform = `translateX(-${currentPage * 100}%)`;
   }
 }
 
-pageContent(currentDay,leftText,leftTimer);
-pageContent(currentDay+1,rightText,rightTimer);
+/* Floating hearts */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="floating-heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(12+Math.random()*14)+"px";
+  h.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},700);
 
-/* Flip */
-function flipBook(){
-  document.querySelector(".book").classList.toggle("flipped");
-}
+/* Snow & petals */
+setInterval(()=>{
+  const f=document.createElement("div");
+  f.className="fall";
+  f.innerHTML=Math.random()>0.5?"❄️":"🌹";
+  f.style.left=Math.random()*100+"vw";
+  f.style.fontSize=(12+Math.random()*16)+"px";
+  f.style.animationDuration=(6+Math.random()*6)+"s";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),12000);
+},450);
 </script>
 
 </body>
