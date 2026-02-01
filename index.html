@@ -2,17 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>My Love ❤️</title>
+<title>Our Love Book ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 
 body{
   height:100vh;
@@ -20,12 +15,12 @@ body{
   background:linear-gradient(180deg,#ffb3b3,#ffd6cc);
 }
 
-/* Countdown */
+/* Global Countdown */
 #countdown{
   position:fixed;
   top:15px;
   right:20px;
-  background:rgba(255,255,255,0.85);
+  background:rgba(255,255,255,.85);
   padding:10px 14px;
   border-radius:14px;
   font-weight:600;
@@ -33,86 +28,90 @@ body{
   z-index:10;
 }
 
-/* Heart on top */
+/* Heart */
 .top-heart{
   position:fixed;
-  top:25px;
+  top:20px;
   left:50%;
   transform:translateX(-50%) rotate(-45deg);
-  width:70px;
-  height:70px;
+  width:70px;height:70px;
   background:#ff4d6d;
-  animation:beat 2.5s ease-in-out infinite;
+  animation:beat 2.2s infinite;
 }
-
-.top-heart::before,
-.top-heart::after{
-  content:"";
-  width:70px;
-  height:70px;
-  background:#ff4d6d;
-  border-radius:50%;
+.top-heart::before,.top-heart::after{
+  content:"";width:70px;height:70px;
+  background:#ff4d6d;border-radius:50%;
   position:absolute;
 }
-
-.top-heart::before{ top:-35px; left:0; }
-.top-heart::after{ left:35px; top:0; }
-
-/* Soft heartbeat */
+.top-heart::before{top:-35px}
+.top-heart::after{left:35px}
 @keyframes beat{
-  0%{ transform:translateX(-50%) rotate(-45deg) scale(1); }
-  50%{ transform:translateX(-50%) rotate(-45deg) scale(1.06); }
-  100%{ transform:translateX(-50%) rotate(-45deg) scale(1); }
+  0%,100%{transform:translateX(-50%) rotate(-45deg) scale(1)}
+  50%{transform:translateX(-50%) rotate(-45deg) scale(1.08)}
 }
 
-/* Center Card */
+/* Card */
 .card{
   position:absolute;
-  top:50%;
-  left:50%;
+  top:50%;left:50%;
   transform:translate(-50%,-50%);
+  width:350px;height:500px;
   background:#fffaf3;
-  width:320px;
-  height:420px;
-  border-radius:26px;
-  box-shadow:0 25px 45px rgba(0,0,0,.18);
-  padding:35px;
+  border-radius:28px;
+  box-shadow:0 30px 50px rgba(0,0,0,.2);
+  padding:30px;
   text-align:center;
 }
 
 .card h1{
   font-family:'Pacifico',cursive;
   color:#ff5e78;
-  margin-bottom:18px;
 }
 
-.card p{
-  font-size:15px;
-  line-height:1.8;
+/* Book */
+.book{
+  margin:30px auto;
+  width:260px;height:180px;
+  perspective:1200px;
+  cursor:pointer;
 }
 
-/* Floating hearts */
-.floating-heart{
+.page-wrap{
+  width:100%;height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:1s;
+}
+
+.page{
   position:absolute;
-  color:#ff4d6d;
-  animation:floatUp linear infinite;
-  opacity:.8;
+  width:50%;height:100%;
+  background:#fffdf7;
+  box-shadow:inset 0 0 12px rgba(0,0,0,.1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  padding:14px;
+  font-size:13px;
+  color:#444;
 }
 
-@keyframes floatUp{
-  from{ transform:translateY(100vh) scale(.6); }
-  to{ transform:translateY(-10vh) scale(1); }
+.left{left:0;border-right:1px solid #eee}
+.right{
+  right:0;
+  transform-origin:left;
+  transition:1s;
 }
 
-/* Snow & rose petals */
-.fall{
-  position:absolute;
-  top:-20px;
-  animation:fall linear infinite;
+.book.flipped .right{
+  transform:rotateY(-180deg);
 }
 
-@keyframes fall{
-  to{ transform:translateY(110vh) rotate(360deg); }
+.page small{
+  margin-top:10px;
+  color:#ff5e78;
+  font-weight:500;
 }
 
 /* Footer */
@@ -123,65 +122,81 @@ footer{
   text-align:center;
   font-size:16px;
   color:#8b0000;
-  font-weight:500;
 }
 </style>
 </head>
 
 <body>
 
-<div id="countdown">Loading…</div>
-
+<div id="countdown"></div>
 <div class="top-heart"></div>
 
 <div class="card">
-  <h1>My Love ❤️</h1>
-  <p>This is our little love book.</p>
-  <p>Come back every day…<br>
-     I’ll turn a new page for you 💌</p>
+  <h1>Our Love Book ❤️</h1>
+  <p>One page unlocks every day 💌</p>
+
+  <div class="book" onclick="flipBook()">
+    <div class="page-wrap">
+      <div class="page left">
+        <span id="leftText">Loading…</span>
+        <small id="leftTimer"></small>
+      </div>
+      <div class="page right">
+        <span id="rightText">Coming Soon…</span>
+        <small id="rightTimer"></small>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:13px;color:#777">Tap the book to flip 📖</p>
 </div>
 
 <footer>From your man, <b>Parthiv Aditya</b> ❤️</footer>
 
 <script>
-/* Countdown */
-const target = new Date("2026-02-14T00:00:00").getTime();
+/* Global Countdown */
+const finalDate=new Date("2026-02-14T00:00:00");
 setInterval(()=>{
-  const now = new Date().getTime();
-  const d = target - now;
-  if(d<=0){
-    countdown.innerHTML="Forever ♾️";
-    return;
-  }
-  const days=Math.floor(d/(1000*60*60*24));
-  const hrs=Math.floor((d%(1000*60*60*24))/(1000*60*60));
-  const mins=Math.floor((d%(1000*60*60))/(1000*60));
-  countdown.innerHTML=`${days}d ${hrs}h ${mins}m`;
+  const d=finalDate-new Date();
+  countdown.innerHTML=d<=0?"Forever ♾️":
+  `${Math.floor(d/86400000)}d ${Math.floor(d/3600000)%24}h`;
 },1000);
 
-/* Floating hearts */
-setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="floating-heart";
-  h.innerHTML="❤️";
-  h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(12+Math.random()*14)+"px";
-  h.style.animationDuration=(4+Math.random()*4)+"s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),8000);
-},600);
+/* Love Pages */
+const pages=[
+  "The day I met you 💖",
+  "Your smile calms my soul 🌸",
+  "Every heartbeat whispers your name ❤️",
+  "You are my safe place 🫶",
+  "I choose you. Always. ♾️"
+];
 
-/* Snow + rose petals */
-setInterval(()=>{
-  const f=document.createElement("div");
-  f.className="fall";
-  f.innerHTML=Math.random()>0.5?"❄️":"🌹";
-  f.style.left=Math.random()*100+"vw";
-  f.style.fontSize=(12+Math.random()*16)+"px";
-  f.style.animationDuration=(6+Math.random()*6)+"s";
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),12000);
-},400);
+const startDate=new Date("2026-02-01");
+const today=new Date();
+const currentDay=Math.floor((today-startDate)/86400000);
+
+function pageContent(index,textEl,timeEl){
+  const unlock=new Date(startDate);
+  unlock.setDate(startDate.getDate()+index);
+
+  if(today>=unlock){
+    textEl.innerText=pages[index] || "Our story never ends 💞";
+    timeEl.innerText="Unlocked ❤️";
+  }else{
+    const diff=unlock-today;
+    textEl.innerText="Coming Soon 💌";
+    timeEl.innerText=
+      `${Math.floor(diff/86400000)}d ${Math.floor(diff/3600000)%24}h remaining`;
+  }
+}
+
+pageContent(currentDay,leftText,leftTimer);
+pageContent(currentDay+1,rightText,rightTimer);
+
+/* Flip */
+function flipBook(){
+  document.querySelector(".book").classList.toggle("flipped");
+}
 </script>
 
 </body>
