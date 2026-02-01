@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Love Book ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
   height:100vh;
   overflow:hidden;
@@ -15,43 +17,42 @@ body{
   font-family:'Poppins',sans-serif;
 }
 
-/* Top countdown */
+/* Countdown top */
 #countdown{
   position:fixed;
-  top:15px;
-  right:20px;
+  top:10px;
+  right:10px;
   background:rgba(255,255,255,.9);
-  padding:14px 18px;
-  border-radius:18px;
-  font-size:13px;
+  padding:8px 12px;
+  border-radius:14px;
+  font-size:12px;
   font-weight:600;
   color:#ff3b6b;
-  z-index:10;
+  z-index:20;
   text-align:center;
 }
 
-/* Heart */
+/* Beating heart */
 .top-heart{
   position:fixed;
-  top:30px;
+  top:18px;
   left:50%;
   transform:translateX(-50%) rotate(-45deg);
-  width:55px;height:55px;
+  width:42px;height:42px;
   background:#ff4d6d;
-  animation:beat 2.5s infinite;
+  animation:beat 2.6s infinite;
 }
 .top-heart::before,.top-heart::after{
   content:"";
-  width:55px;height:55px;
+  width:42px;height:42px;
   background:#ff4d6d;
   border-radius:50%;
   position:absolute;
 }
-.top-heart::before{top:-27px}
-.top-heart::after{left:27px}
-
+.top-heart::before{top:-21px}
+.top-heart::after{left:21px}
 @keyframes beat{
-  50%{transform:translateX(-50%) rotate(-45deg) scale(1.05)}
+  50%{transform:translateX(-50%) rotate(-45deg) scale(1.08)}
 }
 
 /* Card */
@@ -59,42 +60,55 @@ body{
   position:absolute;
   top:50%;left:50%;
   transform:translate(-50%,-50%);
-  width:360px;height:580px;
+  width:92vw;
+  max-width:360px;
+  height:82vh;
   background:#fffaf3;
-  border-radius:28px;
-  padding:26px;
-  box-shadow:0 30px 50px rgba(0,0,0,.18);
+  border-radius:26px;
+  padding:18px;
+  box-shadow:0 25px 45px rgba(0,0,0,.18);
   text-align:center;
 }
+
 .card h1{
   font-family:'Pacifico',cursive;
   color:#ff5e78;
+  font-size:24px;
 }
 
 /* Book */
 .book{
-  margin:25px auto;
-  width:290px;height:300px;
+  margin-top:15px;
+  width:100%;
+  height:65%;
   background:#fffdf7;
   border-radius:18px;
   overflow:hidden;
   box-shadow:0 15px 25px rgba(0,0,0,.15);
   position:relative;
 }
+
 .pages{
   display:flex;
   height:100%;
-  transition:transform .8s ease;
+  transition:transform .7s ease;
 }
+
 .page{
   min-width:100%;
-  padding:22px;
+  padding:18px;
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  text-align:center;
-  font-size:15px;
-  line-height:1.7;
+  font-size:14px;
+  line-height:1.6;
+  transition:filter .6s ease;
+}
+
+/* BLUR LOCK */
+.locked{
+  filter:blur(6px);
 }
 
 /* Turn text */
@@ -106,25 +120,25 @@ body{
   color:#ff4d6d;
   cursor:pointer;
 }
-.turn.next{right:16px}
-.turn.prev{left:16px}
+.turn.prev{left:14px}
+.turn.next{right:14px}
 
-/* Floating */
-.float,.fall{
+/* Floating items */
+.fall{
   position:absolute;
-  animation:move linear infinite;
+  animation:fall linear infinite;
 }
-@keyframes move{
+@keyframes fall{
   to{transform:translateY(110vh) rotate(360deg)}
 }
 
 /* Footer */
 footer{
   position:fixed;
-  bottom:15px;
+  bottom:10px;
   width:100%;
   text-align:center;
-  font-size:16px;
+  font-size:14px;
   color:#8b0000;
 }
 </style>
@@ -137,30 +151,29 @@ footer{
 
 <div class="card">
 <h1>My Love ❤️</h1>
-<p>Our Valentine Week Book 💌</p>
 
 <div class="book">
 <div class="pages" id="pages">
 
 <div class="page">
 My Love ❤️<br><br>
-This book is for us 💖<br>
-Every day unlocks a new feeling,<br>
-a new memory, a new promise ✨
+This is our little love book 💖<br>
+Come back every day…<br>
+A new page will unlock ✨
 </div>
 
-<div class="page" id="rose"></div>
-<div class="page" id="propose"></div>
-<div class="page" id="choco"></div>
-<div class="page" id="teddy"></div>
-<div class="page" id="promise"></div>
-<div class="page" id="kiss"></div>
-<div class="page" id="valentine"></div>
+<div class="page locked" data-date="2026-02-07">🌹 Rose Day<br><span id="rose"></span></div>
+<div class="page locked" data-date="2026-02-08">💍 Propose Day<br><span id="propose"></span></div>
+<div class="page locked" data-date="2026-02-09">🍫 Chocolate Day<br><span id="choco"></span></div>
+<div class="page locked" data-date="2026-02-10">🧸 Teddy Day<br><span id="teddy"></span></div>
+<div class="page locked" data-date="2026-02-11">🤝 Promise Day<br><span id="promise"></span></div>
+<div class="page locked" data-date="2026-02-13">💋 Kiss Day<br><span id="kiss"></span></div>
+<div class="page locked" data-date="2026-02-14">❤️ Valentine’s Day<br><span id="valentine"></span></div>
 
 </div>
 
 <div class="turn prev" onclick="prevPage()">⬅ Previous</div>
-<div class="turn next" onclick="nextPage()">Turn Page ➜</div>
+<div class="turn next" onclick="nextPage()">Turn ➜</div>
 
 </div>
 </div>
@@ -168,66 +181,71 @@ a new memory, a new promise ✨
 <footer>From your man, <b>Parthiv Aditya</b> ❤️</footer>
 
 <script>
-const days={
-  rose:new Date("2026-02-07T00:00:00"),
-  propose:new Date("2026-02-08T00:00:00"),
-  choco:new Date("2026-02-09T00:00:00"),
-  teddy:new Date("2026-02-10T00:00:00"),
-  promise:new Date("2026-02-11T00:00:00"),
-  kiss:new Date("2026-02-13T00:00:00"),
-  valentine:new Date("2026-02-14T00:00:00")
+const dates={
+  rose:"2026-02-07",
+  propose:"2026-02-08",
+  choco:"2026-02-09",
+  teddy:"2026-02-10",
+  promise:"2026-02-11",
+  kiss:"2026-02-13",
+  valentine:"2026-02-14"
 };
 
-function timeLeft(target){
-  const diff=target-new Date();
-  if(diff<=0) return "Today 💖";
-  const d=Math.floor(diff/86400000);
-  const h=Math.floor(diff%86400000/3600000);
-  const m=Math.floor(diff%3600000/60000);
-  const s=Math.floor(diff%60000/1000);
-  return `${d}d ${h}h ${m}m ${s}s`;
+function timeLeft(d){
+  const diff=new Date(d)-new Date();
+  if(diff<=0) return "Unlocked ❤️";
+  const D=Math.floor(diff/86400000);
+  const H=Math.floor(diff%86400000/3600000);
+  const M=Math.floor(diff%3600000/60000);
+  const S=Math.floor(diff%60000/1000);
+  return `${D}d ${H}h ${M}m ${S}s`;
 }
 
 setInterval(()=>{
-  countdown.innerHTML=
-  "Valentine’s Day ❤️<br>"+timeLeft(days.valentine);
+  countdown.innerHTML="Valentine’s Day ❤️<br>"+timeLeft(dates.valentine);
 
-  rose.innerHTML="🌹 Rose Day<br>"+timeLeft(days.rose);
-  propose.innerHTML="💍 Propose Day<br>"+timeLeft(days.propose);
-  choco.innerHTML="🍫 Chocolate Day<br>"+timeLeft(days.choco);
-  teddy.innerHTML="🧸 Teddy Day<br>"+timeLeft(days.teddy);
-  promise.innerHTML="🤝 Promise Day<br>"+timeLeft(days.promise);
-  kiss.innerHTML="💋 Kiss Day<br>"+timeLeft(days.kiss);
-  valentine.innerHTML="❤️ Valentine’s Day<br>"+timeLeft(days.valentine);
+  rose.innerText=timeLeft(dates.rose);
+  propose.innerText=timeLeft(dates.propose);
+  choco.innerText=timeLeft(dates.choco);
+  teddy.innerText=timeLeft(dates.teddy);
+  promise.innerText=timeLeft(dates.promise);
+  kiss.innerText=timeLeft(dates.kiss);
+  valentine.innerText=timeLeft(dates.valentine);
+
+  document.querySelectorAll(".page[data-date]").forEach(p=>{
+    if(new Date() >= new Date(p.dataset.date)){
+      p.classList.remove("locked");
+    }
+  });
 },1000);
 
-let page=0;
+/* Page navigation */
+let index=0;
 const pages=document.getElementById("pages");
-
 function nextPage(){
-  if(page<pages.children.length-1){
-    page++;
-    pages.style.transform=`translateX(-${page*100}%)`;
+  if(index<pages.children.length-1){
+    index++;
+    pages.style.transform=`translateX(-${index*100}%)`;
   }
 }
 function prevPage(){
-  if(page>0){
-    page--;
-    pages.style.transform=`translateX(-${page*100}%)`;
+  if(index>0){
+    index--;
+    pages.style.transform=`translateX(-${index*100}%)`;
   }
 }
 
-/* Hearts, snow, petals */
+/* Floating hearts / snow / petals */
 setInterval(()=>{
   const e=document.createElement("div");
-  e.className=Math.random()>.5?"float":"fall";
-  e.innerHTML=Math.random()>.6?"❤️":Math.random()>.5?"❄️":"🌹";
+  e.className="fall";
+  e.innerHTML=Math.random()>.66?"❤️":Math.random()>.5?"❄️":"🌹";
   e.style.left=Math.random()*100+"vw";
-  e.style.fontSize=(12+Math.random()*18)+"px";
-  e.style.animationDuration=(5+Math.random()*6)+"s";
+  e.style.fontSize=(10+Math.random()*16)+"px";
+  e.style.animationDuration=(6+Math.random()*6)+"s";
   document.body.appendChild(e);
   setTimeout(()=>e.remove(),12000);
-},420);
+},500);
 </script>
 
 </body>
