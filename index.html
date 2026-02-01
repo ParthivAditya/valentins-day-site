@@ -21,8 +21,8 @@ body{
   top:15px;
   right:20px;
   background:rgba(255,255,255,.9);
-  padding:12px 16px;
-  border-radius:16px;
+  padding:14px 18px;
+  border-radius:18px;
   font-size:13px;
   font-weight:600;
   color:#ff3b6b;
@@ -33,25 +33,25 @@ body{
 /* Heart */
 .top-heart{
   position:fixed;
-  top:25px;
+  top:30px;
   left:50%;
   transform:translateX(-50%) rotate(-45deg);
-  width:60px;height:60px;
+  width:55px;height:55px;
   background:#ff4d6d;
   animation:beat 2.5s infinite;
 }
 .top-heart::before,.top-heart::after{
   content:"";
-  width:60px;height:60px;
+  width:55px;height:55px;
   background:#ff4d6d;
   border-radius:50%;
   position:absolute;
 }
-.top-heart::before{top:-30px}
-.top-heart::after{left:30px}
+.top-heart::before{top:-27px}
+.top-heart::after{left:27px}
 
 @keyframes beat{
-  50%{transform:translateX(-50%) rotate(-45deg) scale(1.06)}
+  50%{transform:translateX(-50%) rotate(-45deg) scale(1.05)}
 }
 
 /* Card */
@@ -59,7 +59,7 @@ body{
   position:absolute;
   top:50%;left:50%;
   transform:translate(-50%,-50%);
-  width:360px;height:560px;
+  width:360px;height:580px;
   background:#fffaf3;
   border-radius:28px;
   padding:26px;
@@ -74,9 +74,9 @@ body{
 /* Book */
 .book{
   margin:25px auto;
-  width:280px;height:260px;
+  width:290px;height:300px;
   background:#fffdf7;
-  border-radius:16px;
+  border-radius:18px;
   overflow:hidden;
   box-shadow:0 15px 25px rgba(0,0,0,.15);
   position:relative;
@@ -84,34 +84,30 @@ body{
 .pages{
   display:flex;
   height:100%;
-  transition:transform .7s ease;
+  transition:transform .8s ease;
 }
 .page{
   min-width:100%;
-  padding:20px;
+  padding:22px;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   font-size:15px;
-  line-height:1.6;
+  line-height:1.7;
 }
 
 /* Turn text */
 .turn{
   position:absolute;
-  bottom:8px;
+  bottom:10px;
   font-family:'Pacifico',cursive;
   font-size:14px;
   color:#ff4d6d;
   cursor:pointer;
-  transition:.3s;
 }
-.turn.next{right:14px}
-.turn.prev{left:14px}
-.turn:hover{
-  text-shadow:0 0 8px rgba(255,77,109,.6);
-}
+.turn.next{right:16px}
+.turn.prev{left:16px}
 
 /* Floating */
 .float,.fall{
@@ -148,9 +144,9 @@ footer{
 
 <div class="page">
 My Love ❤️<br><br>
-This little book is only for you.<br>
-Every day a new page,<br>
-every page a new feeling 💖
+This book is for us 💖<br>
+Every day unlocks a new feeling,<br>
+a new memory, a new promise ✨
 </div>
 
 <div class="page" id="rose"></div>
@@ -173,34 +169,36 @@ every page a new feeling 💖
 
 <script>
 const days={
-  rose:new Date("2026-02-07"),
-  propose:new Date("2026-02-08"),
-  choco:new Date("2026-02-09"),
-  teddy:new Date("2026-02-10"),
-  promise:new Date("2026-02-11"),
-  kiss:new Date("2026-02-13"),
-  valentine:new Date("2026-02-14")
+  rose:new Date("2026-02-07T00:00:00"),
+  propose:new Date("2026-02-08T00:00:00"),
+  choco:new Date("2026-02-09T00:00:00"),
+  teddy:new Date("2026-02-10T00:00:00"),
+  promise:new Date("2026-02-11T00:00:00"),
+  kiss:new Date("2026-02-13T00:00:00"),
+  valentine:new Date("2026-02-14T00:00:00")
 };
 
-function format(d){
-  if(d<=0) return "Today 💖";
-  return `${Math.floor(d/86400000)} days to go`;
+function timeLeft(target){
+  const diff=target-new Date();
+  if(diff<=0) return "Today 💖";
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor(diff%86400000/3600000);
+  const m=Math.floor(diff%3600000/60000);
+  const s=Math.floor(diff%60000/1000);
+  return `${d}d ${h}h ${m}m ${s}s`;
 }
 
 setInterval(()=>{
-  const now=new Date();
-
   countdown.innerHTML=
-  "Countdown to Valentine’s Day ❤️<br>"+
-  format(days.valentine-now);
+  "Valentine’s Day ❤️<br>"+timeLeft(days.valentine);
 
-  rose.innerHTML="🌹 Rose Day<br>"+format(days.rose-now);
-  propose.innerHTML="💍 Propose Day<br>"+format(days.propose-now);
-  choco.innerHTML="🍫 Chocolate Day<br>"+format(days.choco-now);
-  teddy.innerHTML="🧸 Teddy Day<br>"+format(days.teddy-now);
-  promise.innerHTML="🤝 Promise Day<br>"+format(days.promise-now);
-  kiss.innerHTML="💋 Kiss Day<br>"+format(days.kiss-now);
-  valentine.innerHTML="❤️ Valentine’s Day<br>"+format(days.valentine-now);
+  rose.innerHTML="🌹 Rose Day<br>"+timeLeft(days.rose);
+  propose.innerHTML="💍 Propose Day<br>"+timeLeft(days.propose);
+  choco.innerHTML="🍫 Chocolate Day<br>"+timeLeft(days.choco);
+  teddy.innerHTML="🧸 Teddy Day<br>"+timeLeft(days.teddy);
+  promise.innerHTML="🤝 Promise Day<br>"+timeLeft(days.promise);
+  kiss.innerHTML="💋 Kiss Day<br>"+timeLeft(days.kiss);
+  valentine.innerHTML="❤️ Valentine’s Day<br>"+timeLeft(days.valentine);
 },1000);
 
 let page=0;
@@ -229,7 +227,7 @@ setInterval(()=>{
   e.style.animationDuration=(5+Math.random()*6)+"s";
   document.body.appendChild(e);
   setTimeout(()=>e.remove(),12000);
-},450);
+},420);
 </script>
 
 </body>
