@@ -7,6 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
+*{box-sizing:border-box}
+
 body{
   margin:0;
   height:100vh;
@@ -18,13 +20,13 @@ body{
   overflow:hidden;
 }
 
-/* 💓 HEART WITH S */
+/* 💓 BEATING HEART WITH S */
 .heart-container{
   position:fixed;
   top:20px;
   left:50%;
   transform:translateX(-50%);
-  z-index:6;
+  z-index:10;
 }
 
 .heart{
@@ -44,7 +46,6 @@ body{
   color:white;
   font-family:'Pacifico',cursive;
   font-size:26px;
-  z-index:2;
 }
 
 .heart::before,
@@ -62,61 +63,7 @@ body{
 
 @keyframes beat{
   0%,100%{ transform:rotate(-45deg) scale(1); }
-  25%{ transform:rotate(-45deg) scale(1.15); }
-  75%{ transform:rotate(-45deg) scale(1.25); }
-}
-
-/* 💕 FLOATING HEARTS */
-.floating-heart{
-  position:fixed;
-  bottom:-10px;
-  font-size:18px;
-  animation:floatUp linear forwards;
-  opacity:0.8;
-  pointer-events:none;
-  z-index:2;
-}
-
-@keyframes floatUp{
-  to{
-    transform:translateY(-110vh);
-    opacity:0;
-  }
-}
-
-/* ❄️ SNOW */
-.snowflake{
-  position:fixed;
-  top:-10px;
-  color:white;
-  opacity:0.7;
-  animation:snowfall linear forwards;
-  pointer-events:none;
-  z-index:1;
-}
-
-@keyframes snowfall{
-  to{ transform:translateY(110vh); }
-}
-
-/* 🌹 ROSE PETALS */
-.petal{
-  position:fixed;
-  top:-10px;
-  width:14px;
-  height:20px;
-  background:radial-gradient(circle at top left,#ffb3c6,#e63946);
-  border-radius:50% 50% 50% 0;
-  opacity:0.85;
-  animation:petalFall linear forwards;
-  pointer-events:none;
-  z-index:2;
-}
-
-@keyframes petalFall{
-  to{
-    transform:translate(80px,110vh) rotate(360deg);
-  }
+  50%{ transform:rotate(-45deg) scale(1.25); }
 }
 
 /* 📖 BOOK */
@@ -124,20 +71,19 @@ body{
   width:320px;
   height:420px;
   perspective:2000px;
-  z-index:4;
+  z-index:5;
 }
 
 .page{
   width:100%;
   height:100%;
   background:#fffdf7;
-  border-radius:15px;
+  border-radius:18px;
   position:absolute;
   transform-origin:left;
   transition:transform 1s;
   box-shadow:0 15px 30px rgba(0,0,0,.2);
   padding:30px;
-  box-sizing:border-box;
   text-align:center;
 }
 
@@ -167,9 +113,56 @@ body{
   cursor:pointer;
 }
 
-/* 📱 MOBILE */
-@media(max-width:480px){
-  .book{ transform:scale(0.9); }
+/* 💕 FLOATING HEARTS */
+.floating-heart{
+  position:fixed;
+  bottom:-10px;
+  font-size:20px;
+  animation:floatUp linear forwards;
+  pointer-events:none;
+  z-index:2;
+}
+
+@keyframes floatUp{
+  to{
+    transform:translateY(-110vh);
+    opacity:0;
+  }
+}
+
+/* ❄️ SNOW */
+.snowflake{
+  position:fixed;
+  top:-10px;
+  color:white;
+  opacity:0.7;
+  animation:snowfall linear forwards;
+  pointer-events:none;
+  z-index:1;
+}
+
+@keyframes snowfall{
+  to{ transform:translateY(110vh); }
+}
+
+/* 🌹 ROSE PETALS */
+.petal{
+  position:fixed;
+  top:-20px;
+  width:14px;
+  height:20px;
+  background:radial-gradient(circle at top left,#ffb3c6,#e63946);
+  border-radius:50% 50% 50% 0;
+  opacity:0.85;
+  animation:petalFall linear forwards;
+  pointer-events:none;
+  z-index:2;
+}
+
+@keyframes petalFall{
+  to{
+    transform:translate(100px,110vh) rotate(360deg);
+  }
 }
 </style>
 </head>
@@ -181,6 +174,7 @@ body{
   <div class="heart"><span>S</span></div>
 </div>
 
+<!-- 📖 BOOK -->
 <div class="book">
   <div class="page" id="page"></div>
 </div>
@@ -192,7 +186,7 @@ setInterval(()=>{
   h.className="floating-heart";
   h.innerHTML="❤️";
   h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(Math.random()*12+16)+"px";
+  h.style.fontSize=(Math.random()*10+16)+"px";
   h.style.animationDuration=(Math.random()*5+6)+"s";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),10000);
@@ -215,10 +209,10 @@ setInterval(()=>{
   const p=document.createElement("div");
   p.className="petal";
   p.style.left=Math.random()*100+"vw";
-  p.style.animationDuration=(Math.random()*6+8)+"s";
+  p.style.animationDuration=(Math.random()*5+7)+"s";
   document.body.appendChild(p);
-  setTimeout(()=>p.remove(),16000);
-},600);
+  setTimeout(()=>p.remove(),15000);
+},500);
 
 /* 📖 LOVE BOOK LOGIC */
 const page=document.getElementById("page");
@@ -229,38 +223,27 @@ let current=day;
 
 function show(c){ page.innerHTML=c; }
 
-let content=`
+let defaultPage=`
 <h1>My Love ❤️</h1>
 <p>This is our little love book.</p>
 <p>Come back every day…<br>I’ll turn a new page for you 💌</p>
 `;
 
-if(month===2 && day>=7) content=getPage(day);
-show(content);
-
-function flip(){
-  if(current>=day) return;
-  page.style.transform="rotateY(-180deg)";
-  setTimeout(()=>{
-    page.style.transform="rotateY(0deg)";
-    current++;
-    show(getPage(current));
-  },600);
-}
-
-function getPage(d){
-  const p={
-    7:`<h1>🌹 Rose Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🌹</div><div class="msg">For you ❤️</div>${day>=8?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
-    8:`<h1>💌 Propose Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">💌</div><div class="msg">I love you ❤️</div>${day>=9?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
-    9:`<h1>🍫 Chocolate Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🍫</div><div class="msg">Sweet like you 🍫❤️</div>${day>=10?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
-    10:`<h1>🧸 Teddy Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🧸</div><div class="msg">Big hug ❤️</div>${day>=11?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
-    11:`<h1>🤝 Promise Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🤝</div><div class="msg">Always ❤️</div>${day>=12?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
-    12:`<h1>🤗 Hug Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🤗</div><div class="msg">Virtual hug ❤️</div>${day>=13?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
-    13:`<h1>😘 Kiss Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">😘</div><div class="msg">Endless kisses ❤️</div>${day>=14?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
-    14:`<h1>🎈 Valentine’s Day</h1><div class="big" onclick="alert('Happy Valentine’s Day ❤️')">🎈</div><p>Pop it ❤️</p>`
+function getPage(n){
+  const pages={
+    7:`<h1>🌹 Rose Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🌹</div><div class="msg">For you ❤️</div>`,
+    8:`<h1>💌 Propose Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">💌</div><div class="msg">I love you ❤️</div>`,
+    9:`<h1>🍫 Chocolate Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🍫</div><div class="msg">Sweet like you ❤️</div>`,
+    10:`<h1>🧸 Teddy Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🧸</div><div class="msg">Big hug ❤️</div>`,
+    11:`<h1>🤝 Promise Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🤝</div><div class="msg">Always ❤️</div>`,
+    12:`<h1>🤗 Hug Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🤗</div><div class="msg">Virtual hug ❤️</div>`,
+    13:`<h1>😘 Kiss Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">😘</div><div class="msg">Endless kisses ❤️</div>`,
+    14:`<h1>🎈 Valentine’s Day</h1><div class="big" onclick="alert('Happy Valentine’s Day ❤️')">🎈</div>`
   };
-  return p[d]||content;
+  return pages[n] || defaultPage;
 }
+
+show(month===2 ? getPage(day) : defaultPage);
 </script>
 
 </body>
