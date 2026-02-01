@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Satya Prasanna ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+/* ===== BODY ===== */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== FLOATING HEART BALLOONS ===== */
+.heart {
+  position: absolute;
+  bottom: -50px;
+  width: 20px;
+  height: 20px;
+  background: #ff4d6d;
+  transform: rotate(45deg);
+  animation: float 10s linear infinite;
+  opacity: 0.7;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #ff4d6d;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -10px;
+  left: 0;
+}
+
+.heart::after {
+  left: -10px;
+  top: 0;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-110vh) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* ===== HEADER & FOOTER ===== */
+.header {
+  position: fixed;
+  top: 15px;
+  left: 20px;
+  font-family: 'Pacifico', cursive;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 15px;
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: rgba(255,255,255,0.95);
+  padding: 40px;
+  border-radius: 22px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 25px 45px rgba(0,0,0,0.15);
+  animation: fade 1s ease;
+  z-index: 10;
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  color: #ff4d6d;
+}
+
+p {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ===== BUTTON ===== */
+.btn {
+  margin-top: 20px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  background: #ff4d6d;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  background: #ff1f4a;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+@keyframes fade {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- FLOATING HEARTS -->
+<div class="heart" style="left:10%; animation-duration: 9s;"></div>
+<div class="heart" style="left:30%; animation-duration: 12s;"></div>
+<div class="heart" style="left:50%; animation-duration: 10s;"></div>
+<div class="heart" style="left:70%; animation-duration: 14s;"></div>
+<div class="heart" style="left:90%; animation-duration: 11s;"></div>
+
+<!-- HEADER -->
+<div class="header">Satya Prasanna ❤️</div>
+
+<!-- FOOTER -->
+<div class="footer">from your man, Parthiv Aditya ❤️</div>
+
+<!-- MAIN CARD -->
+<div class="card">
+
+  <div class="section active">
+    <h1>My Love ❤️</h1>
+    <p>
+      Distance may separate us,<br>
+      but my heart never left you.
+    </p>
+    <p>
+      This page holds my Valentine week for you.
+    </p>
+    <button class="btn" onclick="next()">Start 💝</button>
+  </div>
+
+  <div class="section">
+    <h1>🌹 Rose Day</h1>
+    <p>
+      Satya Prasanna,<br><br>
+      If love had a shape,<br>
+      it would bloom like this rose for you.
+    </p>
+    <button class="btn" onclick="next()">Next 💌</button>
+  </div>
+
+  <div class="section">
+    <h1>💌 Propose Day</h1>
+    <p>
+      I choose you —<br>
+      not just today,<br>
+      but in every tomorrow.
+    </p>
+    <button class="btn" onclick="next()">Next 🍫</button>
+  </div>
+
+  <div class="section">
+    <h1>🍫 Chocolate Day</h1>
+    <p>
+      Life is sweeter with you,<br>
+      and nothing compares.
+    </p>
+    <button class="btn" onclick="next()">Next 🧸</button>
+  </div>
+
+  <div class="section">
+    <h1>🧸 Teddy Day</h1>
+    <p>
+      Until I can hug you,<br>
+      let this teddy remind you of me.
+    </p>
+    <button class="btn" onclick="next()">Next 🤝</button>
+  </div>
+
+  <div class="section">
+    <h1>🤝 Promise Day</h1>
+    <p>
+      I promise patience.<br>
+      I promise effort.<br>
+      I promise us.
+    </p>
+    <button class="btn" onclick="next()">Next 🤗</button>
+  </div>
+
+  <div class="section">
+    <h1>🤗 Hug Day</h1>
+    <p>
+      Close your eyes…<br>
+      this is me hugging you from afar.
+    </p>
+    <button class="btn" onclick="next()">Next ❤️</button>
+  </div>
+
+  <div class="section">
+    <h1>❤️ Valentine’s Day</h1>
+    <p>
+      Distance tested us,<br>
+      and love chose us.
+    </p>
+    <p>
+      Happy Valentine’s Day,<br>
+      Satya Prasanna.
+    </p>
+  </div>
+
+</div>
+
+<script>
+let current = 0;
+const sections = document.querySelectorAll('.section');
+
+function next() {
+  sections[current].classList.remove('active');
+  current++;
+  sections[current].classList.add('active');
+}
+</script>
+
+</body>
+</html>
