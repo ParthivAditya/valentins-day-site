@@ -20,7 +20,7 @@ body{
   overflow:hidden;
 }
 
-/* 💓 BEATING HEART WITH S */
+/* 💓 BEATING HEART */
 .heart-container{
   position:fixed;
   top:20px;
@@ -104,15 +104,6 @@ body{
   color:#555;
 }
 
-.turn{
-  position:absolute;
-  bottom:20px;
-  right:20px;
-  font-size:14px;
-  color:#ff5e78;
-  cursor:pointer;
-}
-
 /* 💕 FLOATING HEARTS */
 .floating-heart{
   position:fixed;
@@ -164,6 +155,18 @@ body{
     transform:translate(100px,110vh) rotate(360deg);
   }
 }
+
+/* ❤️ FOOTER */
+.footer{
+  position:fixed;
+  bottom:15px;
+  width:100%;
+  text-align:center;
+  font-family:'Pacifico',cursive;
+  color:white;
+  font-size:16px;
+  z-index:10;
+}
 </style>
 </head>
 
@@ -178,6 +181,9 @@ body{
 <div class="book">
   <div class="page" id="page"></div>
 </div>
+
+<!-- ❤️ FOOTER -->
+<div class="footer">from your man, Parthiv Aditya ❤️</div>
 
 <script>
 /* 💕 FLOATING HEARTS */
@@ -214,36 +220,13 @@ setInterval(()=>{
   setTimeout(()=>p.remove(),15000);
 },500);
 
-/* 📖 LOVE BOOK LOGIC */
+/* 📖 PAGE CONTENT */
 const page=document.getElementById("page");
-const d=new Date();
-const day=d.getDate();
-const month=d.getMonth()+1;
-let current=day;
-
-function show(c){ page.innerHTML=c; }
-
-let defaultPage=`
+page.innerHTML=`
 <h1>My Love ❤️</h1>
 <p>This is our little love book.</p>
 <p>Come back every day…<br>I’ll turn a new page for you 💌</p>
 `;
-
-function getPage(n){
-  const pages={
-    7:`<h1>🌹 Rose Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🌹</div><div class="msg">For you ❤️</div>`,
-    8:`<h1>💌 Propose Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">💌</div><div class="msg">I love you ❤️</div>`,
-    9:`<h1>🍫 Chocolate Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🍫</div><div class="msg">Sweet like you ❤️</div>`,
-    10:`<h1>🧸 Teddy Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🧸</div><div class="msg">Big hug ❤️</div>`,
-    11:`<h1>🤝 Promise Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🤝</div><div class="msg">Always ❤️</div>`,
-    12:`<h1>🤗 Hug Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🤗</div><div class="msg">Virtual hug ❤️</div>`,
-    13:`<h1>😘 Kiss Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">😘</div><div class="msg">Endless kisses ❤️</div>`,
-    14:`<h1>🎈 Valentine’s Day</h1><div class="big" onclick="alert('Happy Valentine’s Day ❤️')">🎈</div>`
-  };
-  return pages[n] || defaultPage;
-}
-
-show(month===2 ? getPage(day) : defaultPage);
 </script>
 
 </body>
