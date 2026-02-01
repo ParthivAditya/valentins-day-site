@@ -12,120 +12,98 @@
 
 body{
   height:100vh;
-  overflow:hidden;
   background:linear-gradient(180deg,#ffb3b3,#ffd6cc);
   font-family:'Poppins',sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 /* Countdown */
 #countdown{
   position:fixed;
-  top:10px;
-  right:10px;
-  background:rgba(255,255,255,.9);
+  top:12px;
+  right:12px;
+  background:#fff;
   padding:8px 12px;
   border-radius:14px;
   font-size:12px;
   font-weight:600;
   color:#ff3b6b;
-  z-index:20;
-  text-align:center;
-}
-
-/* Heart */
-.top-heart{
-  position:fixed;
-  top:18px;
-  left:50%;
-  transform:translateX(-50%) rotate(-45deg);
-  width:42px;height:42px;
-  background:#ff4d6d;
-  animation:beat 2.5s infinite;
-}
-.top-heart::before,.top-heart::after{
-  content:"";
-  width:42px;height:42px;
-  background:#ff4d6d;
-  border-radius:50%;
-  position:absolute;
-}
-.top-heart::before{top:-21px}
-.top-heart::after{left:21px}
-@keyframes beat{
-  50%{transform:translateX(-50%) rotate(-45deg) scale(1.08)}
 }
 
 /* Card */
 .card{
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
   width:92vw;
-  max-width:360px;
+  max-width:380px;
   height:82vh;
   background:#fffaf3;
   border-radius:26px;
-  padding:18px;
-  box-shadow:0 25px 45px rgba(0,0,0,.18);
-  text-align:center;
-}
-
-.card h1{
-  font-family:'Pacifico',cursive;
-  color:#ff5e78;
-  font-size:24px;
-}
-
-/* Book */
-.book{
-  margin-top:15px;
-  width:100%;
-  height:65%;
+  box-shadow:0 30px 50px rgba(0,0,0,.25);
   position:relative;
-  perspective:1600px;
+  overflow:hidden;
 }
 
-.pages{
-  width:100%;
-  height:100%;
-  position:relative;
-}
-
-.page{
+/* Spiral */
+.spiral{
   position:absolute;
-  width:100%;
-  height:100%;
-  background:#fffdf7;
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,.2);
-  transform-origin:left;
-  transform-style:preserve-3d;
-  transition:transform 1s ease;
-  backface-visibility:hidden;
-
+  left:14px;
+  top:20px;
+  bottom:20px;
+  width:14px;
   display:flex;
   flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  font-size:14px;
-  line-height:1.6;
+  justify-content:space-evenly;
+}
+.spiral span{
+  width:14px;
+  height:14px;
+  border:2px solid #ff6b81;
+  border-radius:50%;
+  background:#fffaf3;
+}
+
+/* Header */
+.header{
   text-align:center;
+  padding:16px;
+  font-family:'Pacifico',cursive;
+  font-size:24px;
+  color:#ff5e78;
 }
 
-/* page stacking */
-.page{z-index:9}
-.page.flipped{
-  transform:rotateY(-180deg);
-  z-index:0;
+/* Pages container */
+.book{
+  position:relative;
+  height:calc(100% - 80px);
+  overflow:hidden;
 }
 
-/* Text */
+/* Pages */
+.pages{
+  display:flex;
+  height:100%;
+  transition:transform .5s ease;
+}
+
+/* Single page */
+.page{
+  min-width:100%;
+  padding:30px 26px 26px 46px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+  font-size:14px;
+  line-height:1.7;
+}
+
+/* Titles */
 .page-title{
   font-weight:600;
   color:#ff4d6d;
-  margin-bottom:6px;
   font-size:16px;
+  margin-bottom:6px;
 }
 .page-timer{
   font-size:12px;
@@ -133,40 +111,29 @@ body{
   margin-bottom:12px;
 }
 
-.page-content{
-  transition:filter .6s ease;
-}
+/* Locked blur */
 .locked .page-content{
   filter:blur(6px);
 }
 
-/* lock hint */
-.page.locked::after{
-  content:"🔒 Unlocks soon";
-  position:absolute;
-  bottom:20px;
-  font-size:12px;
-  color:#ff4d6d;
-}
-
 /* Controls */
-.turn{
+.controls{
   position:absolute;
-  bottom:10px;
+  bottom:12px;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:0 20px;
   font-family:'Pacifico',cursive;
-  font-size:14px;
   color:#ff4d6d;
+  font-size:15px;
   cursor:pointer;
 }
-.turn.prev{left:14px}
-.turn.next{right:14px}
 
 /* Footer */
 footer{
   position:fixed;
-  bottom:10px;
-  width:100%;
-  text-align:center;
+  bottom:8px;
   font-size:14px;
   color:#8b0000;
 }
@@ -176,110 +143,92 @@ footer{
 <body>
 
 <div id="countdown"></div>
-<div class="top-heart"></div>
 
 <div class="card">
-<h1>My Love ❤️</h1>
 
-<div class="book">
-<div class="pages">
-
-<div class="page">
-  <div class="page-content">
-    My Love ❤️<br><br>
-    This is our little love book 💖<br>
-    Come back every day…<br>
-    A new page will unlock ✨
+  <div class="spiral">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
   </div>
-</div>
 
-<div class="page locked" data-date="2026-02-07">
-  <div class="page-title">🌹 Rose Day</div>
-  <div class="page-timer" id="rose"></div>
-  <div class="page-content">A rose from my heart to yours ❤️</div>
-</div>
+  <div class="header">My Love ❤️</div>
 
-<div class="page locked" data-date="2026-02-08">
-  <div class="page-title">💍 Propose Day</div>
-  <div class="page-timer" id="propose"></div>
-  <div class="page-content">Will you be mine forever? 💖</div>
-</div>
+  <div class="book">
+    <div class="pages" id="pages">
 
-<div class="page locked" data-date="2026-02-09">
-  <div class="page-title">🍫 Chocolate Day</div>
-  <div class="page-timer" id="choco"></div>
-  <div class="page-content">Sweet like chocolate, just like you 🍫</div>
-</div>
+      <div class="page">
+        <div class="page-content">
+          My Love ❤️<br><br>
+          This is our little love diary 💖<br>
+          Come back every day…<br>
+          A new page unlocks ✨
+        </div>
+      </div>
 
-<div class="page locked" data-date="2026-02-10">
-  <div class="page-title">🧸 Teddy Day</div>
-  <div class="page-timer" id="teddy"></div>
-  <div class="page-content">A teddy hug from me to you 🧸</div>
-</div>
+      <div class="page locked" data-date="2026-02-07">
+        <div class="page-title">🌹 Rose Day</div>
+        <div class="page-timer" id="rose"></div>
+        <div class="page-content">A rose from my heart to yours ❤️</div>
+      </div>
 
-<div class="page locked" data-date="2026-02-11">
-  <div class="page-title">🤝 Promise Day</div>
-  <div class="page-timer" id="promise"></div>
-  <div class="page-content">I promise you my forever ❤️</div>
-</div>
+      <div class="page locked" data-date="2026-02-08">
+        <div class="page-title">💍 Propose Day</div>
+        <div class="page-timer" id="propose"></div>
+        <div class="page-content">Will you be mine forever? 💖</div>
+      </div>
 
-<div class="page locked" data-date="2026-02-13">
-  <div class="page-title">💋 Kiss Day</div>
-  <div class="page-timer" id="kiss"></div>
-  <div class="page-content">A kiss sealed with love 😘</div>
-</div>
+      <div class="page locked" data-date="2026-02-09">
+        <div class="page-title">🍫 Chocolate Day</div>
+        <div class="page-timer" id="choco"></div>
+        <div class="page-content">Sweet like chocolate, just like you 🍫</div>
+      </div>
 
-<div class="page locked" data-date="2026-02-14">
-  <div class="page-title">❤️ Valentine’s Day</div>
-  <div class="page-timer" id="valentine"></div>
-  <div class="page-content">You are my always ❤️</div>
-</div>
+      <div class="page locked" data-date="2026-02-10">
+        <div class="page-title">🧸 Teddy Day</div>
+        <div class="page-timer" id="teddy"></div>
+        <div class="page-content">A teddy hug from me to you 🧸</div>
+      </div>
 
-<div class="page locked" data-date="2026-02-14">
-  <div class="page-title">💌 My Heart</div>
-  <div class="page-timer">Unlocks on Valentine’s Day ❤️</div>
-  <div class="page-content">
-    From the first smile to every fight,<br>
-    I choose you, always ❤️<br><br>
-    <textarea placeholder="Write your feelings here… 💕"
-      style="width:100%;height:90px;border-radius:12px;
-      border:1px solid #ffb3b3;padding:10px;font-family:Poppins;resize:none;">
-    </textarea>
+      <div class="page locked" data-date="2026-02-14">
+        <div class="page-title">💌 My Heart</div>
+        <div class="page-timer">Unlocks on Valentine’s Day ❤️</div>
+        <div class="page-content">
+          I choose you — today and always ❤️<br><br>
+          <textarea placeholder="Write your feelings… 💕"
+            style="width:100%;height:90px;border-radius:12px;
+            border:1px solid #ffb3b3;padding:10px;font-family:Poppins;">
+          </textarea>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="controls">
+      <div onclick="prev()">← Previous</div>
+      <div onclick="next()">Next →</div>
+    </div>
+
   </div>
-</div>
-
-</div>
-
-<div class="turn prev" onclick="prevPage()">← Previous</div>
-<div class="turn next" onclick="nextPage()">Turn →</div>
-
-</div>
 </div>
 
 <footer>From your man, <b>Parthiv Aditya</b> ❤️</footer>
 
 <script>
+const pages=document.getElementById("pages");
 const pageEls=[...document.querySelectorAll(".page")];
-let currentPage=0;
+let index=0;
 
-function nextPage(){
-  if(currentPage>=pageEls.length) return;
-
-  const page=pageEls[currentPage];
-  if(page.classList.contains("locked")) return;
-
-  page.classList.add("flipped");
-  page.style.zIndex=0;
-  currentPage++;
+function next(){
+  if(index >= pageEls.length-1) return;
+  if(pageEls[index+1].classList.contains("locked")) return;
+  index++;
+  pages.style.transform=`translateX(-${index*100}%)`;
 }
 
-function prevPage(){
-  if(currentPage<=0) return;
-
-  currentPage--;
-  const page=pageEls[currentPage];
-  page.classList.remove("flipped");
-  page.style.zIndex=9;
+function prev(){
+  if(index<=0) return;
+  index--;
+  pages.style.transform=`translateX(-${index*100}%)`;
 }
 
 function timeLeft(date){
@@ -288,28 +237,12 @@ function timeLeft(date){
   const d=Math.floor(diff/86400000);
   const h=Math.floor(diff%86400000/3600000);
   const m=Math.floor(diff%3600000/60000);
-  const s=Math.floor(diff%60000/1000);
-  return `${d}d ${h}h ${m}m ${s}s`;
+  return `${d}d ${h}h ${m}m`;
 }
-
-const map={
-  rose:"2026-02-07",
-  propose:"2026-02-08",
-  choco:"2026-02-09",
-  teddy:"2026-02-10",
-  promise:"2026-02-11",
-  kiss:"2026-02-13",
-  valentine:"2026-02-14"
-};
 
 setInterval(()=>{
   document.getElementById("countdown").innerHTML=
     "Valentine 💖<br>"+timeLeft("2026-02-14");
-
-  for(const id in map){
-    const el=document.getElementById(id);
-    if(el) el.innerText=timeLeft(map[id]);
-  }
 
   document.querySelectorAll(".page.locked").forEach(p=>{
     if(new Date()>=new Date(p.dataset.date)){
@@ -317,15 +250,6 @@ setInterval(()=>{
     }
   });
 },1000);
-
-document.addEventListener("input",e=>{
-  if(e.target.tagName==="TEXTAREA")
-    localStorage.setItem("loveComment",e.target.value);
-});
-window.onload=()=>{
-  const t=document.querySelector("textarea");
-  if(t) t.value=localStorage.getItem("loveComment")||"";
-};
 </script>
 
 </body>
