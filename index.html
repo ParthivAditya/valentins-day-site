@@ -20,21 +20,21 @@ body{
   overflow:hidden;
 }
 
-/* 💓 BEATING HEART */
+/* 💓 HEART */
 .heart-container{
   position:fixed;
   top:20px;
   left:50%;
   transform:translateX(-50%);
-  z-index:10;
+  z-index:6;
 }
 
 .heart{
-  width:60px;
-  height:60px;
+  width:48px;
+  height:48px;
   background:#ff4d6d;
   transform:rotate(-45deg);
-  animation:beat 1s infinite;
+  animation:beat 1.2s infinite;
   position:relative;
   display:flex;
   justify-content:center;
@@ -45,25 +45,46 @@ body{
   transform:rotate(45deg);
   color:white;
   font-family:'Pacifico',cursive;
-  font-size:26px;
+  font-size:22px;
 }
 
 .heart::before,
 .heart::after{
   content:"";
   position:absolute;
-  width:60px;
-  height:60px;
+  width:48px;
+  height:48px;
   background:#ff4d6d;
   border-radius:50%;
 }
 
-.heart::before{ top:-30px; left:0; }
-.heart::after{ left:30px; top:0; }
+.heart::before{ top:-24px; left:0; }
+.heart::after{ left:24px; top:0; }
 
 @keyframes beat{
   0%,100%{ transform:rotate(-45deg) scale(1); }
-  50%{ transform:rotate(-45deg) scale(1.25); }
+  50%{ transform:rotate(-45deg) scale(1.2); }
+}
+
+/* ⏳ COUNTDOWN */
+.countdown{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:rgba(255,255,255,0.3);
+  backdrop-filter:blur(8px);
+  padding:10px 14px;
+  border-radius:12px;
+  color:white;
+  font-size:14px;
+  text-align:center;
+  z-index:6;
+}
+
+.countdown span{
+  display:block;
+  font-weight:500;
+  font-size:16px;
 }
 
 /* 📖 BOOK */
@@ -78,12 +99,9 @@ body{
   width:100%;
   height:100%;
   background:#fffdf7;
-  border-radius:18px;
-  position:absolute;
-  transform-origin:left;
-  transition:transform 1s;
-  box-shadow:0 15px 30px rgba(0,0,0,.2);
-  padding:30px;
+  border-radius:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,.2);
+  padding:35px;
   text-align:center;
 }
 
@@ -94,8 +112,8 @@ body{
 
 .big{
   font-size:80px;
+  margin-top:25px;
   cursor:pointer;
-  margin-top:30px;
 }
 
 .msg{
@@ -104,21 +122,29 @@ body{
   color:#555;
 }
 
+/* ❤️ FOOTER */
+.footer{
+  position:fixed;
+  bottom:18px;
+  width:100%;
+  text-align:center;
+  font-family:'Pacifico',cursive;
+  color:rgba(255,255,255,0.9);
+  font-size:15px;
+  z-index:6;
+}
+
 /* 💕 FLOATING HEARTS */
 .floating-heart{
   position:fixed;
   bottom:-10px;
-  font-size:20px;
   animation:floatUp linear forwards;
   pointer-events:none;
-  z-index:2;
+  z-index:1;
 }
 
 @keyframes floatUp{
-  to{
-    transform:translateY(-110vh);
-    opacity:0;
-  }
+  to{ transform:translateY(-110vh); opacity:0; }
 }
 
 /* ❄️ SNOW */
@@ -126,17 +152,17 @@ body{
   position:fixed;
   top:-10px;
   color:white;
-  opacity:0.7;
+  opacity:0.6;
   animation:snowfall linear forwards;
   pointer-events:none;
-  z-index:1;
+  z-index:0;
 }
 
 @keyframes snowfall{
   to{ transform:translateY(110vh); }
 }
 
-/* 🌹 ROSE PETALS */
+/* 🌹 PETALS */
 .petal{
   position:fixed;
   top:-20px;
@@ -144,28 +170,14 @@ body{
   height:20px;
   background:radial-gradient(circle at top left,#ffb3c6,#e63946);
   border-radius:50% 50% 50% 0;
-  opacity:0.85;
+  opacity:0.8;
   animation:petalFall linear forwards;
   pointer-events:none;
-  z-index:2;
+  z-index:1;
 }
 
 @keyframes petalFall{
-  to{
-    transform:translate(100px,110vh) rotate(360deg);
-  }
-}
-
-/* ❤️ FOOTER */
-.footer{
-  position:fixed;
-  bottom:15px;
-  width:100%;
-  text-align:center;
-  font-family:'Pacifico',cursive;
-  color:white;
-  font-size:16px;
-  z-index:10;
+  to{ transform:translate(80px,110vh) rotate(360deg); }
 }
 </style>
 </head>
@@ -177,26 +189,55 @@ body{
   <div class="heart"><span>S</span></div>
 </div>
 
+<!-- ⏳ COUNTDOWN -->
+<div class="countdown">
+  Valentine in
+  <span id="timer">Loading…</span>
+</div>
+
 <!-- 📖 BOOK -->
 <div class="book">
-  <div class="page" id="page"></div>
+  <div class="page">
+    <h1>My Love ❤️</h1>
+    <p>This is our little love book.</p>
+    <p>Come back every day…<br>I’ll turn a new page for you 💌</p>
+  </div>
 </div>
 
 <!-- ❤️ FOOTER -->
 <div class="footer">from your man, Parthiv Aditya ❤️</div>
 
 <script>
-/* 💕 FLOATING HEARTS */
+/* ⏳ COUNTDOWN LOGIC */
+const timer=document.getElementById("timer");
+const year=new Date().getFullYear();
+const target=new Date(`Feb 14, ${year} 00:00:00`).getTime();
+
+setInterval(()=>{
+  const now=new Date().getTime();
+  const diff=target-now;
+  if(diff<=0){
+    timer.innerHTML="Happy Valentine’s Day ❤️";
+    return;
+  }
+  const d=Math.floor(diff/(1000*60*60*24));
+  const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  const m=Math.floor((diff%(1000*60*60))/(1000*60));
+  const s=Math.floor((diff%(1000*60))/1000);
+  timer.innerHTML=`${d}d ${h}h ${m}m ${s}s`;
+},1000);
+
+/* 💕 HEARTS */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="floating-heart";
   h.innerHTML="❤️";
   h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(Math.random()*10+16)+"px";
+  h.style.fontSize=(Math.random()*10+14)+"px";
   h.style.animationDuration=(Math.random()*5+6)+"s";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),10000);
-},700);
+},800);
 
 /* ❄️ SNOW */
 setInterval(()=>{
@@ -208,25 +249,17 @@ setInterval(()=>{
   s.style.animationDuration=(Math.random()*6+10)+"s";
   document.body.appendChild(s);
   setTimeout(()=>s.remove(),16000);
-},900);
+},1000);
 
-/* 🌹 ROSE PETALS */
+/* 🌹 PETALS */
 setInterval(()=>{
   const p=document.createElement("div");
   p.className="petal";
   p.style.left=Math.random()*100+"vw";
-  p.style.animationDuration=(Math.random()*5+7)+"s";
+  p.style.animationDuration=(Math.random()*6+8)+"s";
   document.body.appendChild(p);
-  setTimeout(()=>p.remove(),15000);
-},500);
-
-/* 📖 PAGE CONTENT */
-const page=document.getElementById("page");
-page.innerHTML=`
-<h1>My Love ❤️</h1>
-<p>This is our little love book.</p>
-<p>Come back every day…<br>I’ll turn a new page for you 💌</p>
-`;
+  setTimeout(()=>p.remove(),16000);
+},700);
 </script>
 
 </body>
