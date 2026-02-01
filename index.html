@@ -18,7 +18,7 @@ body{
   overflow:hidden;
 }
 
-/* HEADER CONTAINER */
+/* HEADER */
 .header{
   position:fixed;
   top:15px;
@@ -26,17 +26,22 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:25px;
+  gap:20px;
   font-family:'Pacifico',cursive;
-  color:white;
   font-size:24px;
   z-index:5;
 }
 
-/* BEATING HEART */
+.name{
+  color:white;
+  text-shadow:0 0 10px rgba(255,255,255,.8),
+              0 0 20px rgba(255,105,135,.9);
+}
+
+/* HEART */
 .heart{
-  width:40px;
-  height:40px;
+  width:36px;
+  height:36px;
   background:#ff4d6d;
   transform:rotate(-45deg);
   animation:beat 1s infinite;
@@ -47,14 +52,14 @@ body{
 .heart::after{
   content:"";
   position:absolute;
-  width:40px;
-  height:40px;
+  width:36px;
+  height:36px;
   background:#ff4d6d;
   border-radius:50%;
 }
 
-.heart::before{ top:-20px; left:0; }
-.heart::after{ left:20px; top:0; }
+.heart::before{ top:-18px; left:0; }
+.heart::after{ left:18px; top:0; }
 
 @keyframes beat{
   0%,100%{ transform:rotate(-45deg) scale(1); }
@@ -62,21 +67,19 @@ body{
   75%{ transform:rotate(-45deg) scale(1.25); }
 }
 
-/* ❄️ SNOW */
+/* ❄️ SLOW SNOW */
 .snowflake{
   position:fixed;
   top:-10px;
   color:white;
-  opacity:0.8;
+  opacity:0.7;
   animation:snowfall linear forwards;
   pointer-events:none;
   z-index:1;
 }
 
 @keyframes snowfall{
-  to{
-    transform:translateY(110vh);
-  }
+  to{ transform:translateY(110vh); }
 }
 
 /* FOOTER */
@@ -137,6 +140,12 @@ body{
   color:#ff5e78;
   cursor:pointer;
 }
+
+/* MOBILE */
+@media(max-width:480px){
+  .book{ transform:scale(0.9); }
+  .header{ font-size:20px; }
+}
 </style>
 </head>
 
@@ -144,31 +153,39 @@ body{
 
 <!-- HEADER -->
 <div class="header">
-  <div>Satya</div>
+  <div class="name">Satya</div>
   <div class="heart"></div>
-  <div>Aadi</div>
+  <div class="name">Aadi</div>
 </div>
 
 <div class="footer">forever & always ❤️</div>
+
+<!-- HEARTBEAT SOUND -->
+<audio id="beatSound" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4f2cfe7b30.mp3" type="audio/mpeg">
+</audio>
 
 <div class="book">
   <div class="page" id="page"></div>
 </div>
 
 <script>
-/* ❄️ CONTINUOUS SNOW */
+/* ❤️ HEART SOUND */
+const beatSound = document.getElementById("beatSound");
+document.body.addEventListener("click",()=>beatSound.play(),{once:true});
+
+/* ❄️ CONTINUOUS SLOW SNOW */
 function createSnow(){
   const snow = document.createElement("div");
   snow.className = "snowflake";
   snow.innerHTML = "❄";
   snow.style.left = Math.random()*100 + "vw";
-  snow.style.fontSize = (Math.random()*12 + 10) + "px";
-  snow.style.animationDuration = (Math.random()*5 + 5) + "s";
+  snow.style.fontSize = (Math.random()*8 + 12) + "px";
+  snow.style.animationDuration = (Math.random()*6 + 10) + "s";
   document.body.appendChild(snow);
-
-  setTimeout(()=>snow.remove(),10000);
+  setTimeout(()=>snow.remove(),16000);
 }
-setInterval(createSnow,500);
+setInterval(createSnow,700);
 
 /* LOVE BOOK LOGIC */
 const page = document.getElementById("page");
