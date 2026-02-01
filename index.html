@@ -1,139 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>My Love ❤️</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
 }
 
-body {
-  height: 100vh;
-  overflow: hidden;
-  background: linear-gradient(180deg, #ffb3c6, #ffd6cc);
+body{
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(180deg,#ffb3b3,#ffd6cc);
 }
 
 /* Countdown */
-#countdown {
-  position: fixed;
-  top: 16px;
-  right: 18px;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 10px 14px;
-  border-radius: 14px;
-  font-weight: 600;
-  color: #ff4d6d;
-  z-index: 100;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+#countdown{
+  position:fixed;
+  top:15px;
+  right:20px;
+  background:rgba(255,255,255,0.85);
+  padding:10px 14px;
+  border-radius:14px;
+  font-weight:600;
+  color:#ff4d6d;
+  z-index:10;
+}
+
+/* Heart on top */
+.top-heart{
+  position:fixed;
+  top:25px;
+  left:50%;
+  transform:translateX(-50%) rotate(-45deg);
+  width:70px;
+  height:70px;
+  background:#ff4d6d;
+  animation:beat 2.5s ease-in-out infinite;
+}
+
+.top-heart::before,
+.top-heart::after{
+  content:"";
+  width:70px;
+  height:70px;
+  background:#ff4d6d;
+  border-radius:50%;
+  position:absolute;
+}
+
+.top-heart::before{ top:-35px; left:0; }
+.top-heart::after{ left:35px; top:0; }
+
+/* Soft heartbeat */
+@keyframes beat{
+  0%{ transform:translateX(-50%) rotate(-45deg) scale(1); }
+  50%{ transform:translateX(-50%) rotate(-45deg) scale(1.06); }
+  100%{ transform:translateX(-50%) rotate(-45deg) scale(1); }
 }
 
 /* Center Card */
-.card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fffaf4;
-  width: 330px;
-  height: 420px;
-  border-radius: 26px;
-  box-shadow: 0 30px 45px rgba(0,0,0,0.18);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 10;
+.card{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:#fffaf3;
+  width:320px;
+  height:420px;
+  border-radius:26px;
+  box-shadow:0 25px 45px rgba(0,0,0,.18);
+  padding:35px;
+  text-align:center;
 }
 
-/* Heart */
-.heart {
-  width: 100px;
-  height: 100px;
-  background: #ff4d6d;
-  position: relative;
-  transform: rotate(-45deg);
-  animation: beat 2.2s infinite ease-in-out;
+.card h1{
+  font-family:'Pacifico',cursive;
+  color:#ff5e78;
+  margin-bottom:18px;
 }
 
-.heart::before,
-.heart::after {
-  content: "";
-  width: 100px;
-  height: 100px;
-  background: #ff4d6d;
-  border-radius: 50%;
-  position: absolute;
-}
-
-.heart::before {
-  top: -50px;
-  left: 0;
-}
-
-.heart::after {
-  left: 50px;
-  top: 0;
-}
-
-/* S inside heart */
-.heart span {
-  position: absolute;
-  transform: rotate(45deg);
-  color: #ffffff;
-  font-size: 42px;
-  font-weight: 800;
-  left: 38px;
-  top: 24px;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.35);
-}
-
-/* Smooth heartbeat */
-@keyframes beat {
-  0%   { transform: rotate(-45deg) scale(1); }
-  50%  { transform: rotate(-45deg) scale(1.12); }
-  100% { transform: rotate(-45deg) scale(1); }
+.card p{
+  font-size:15px;
+  line-height:1.8;
 }
 
 /* Floating hearts */
-.floating-heart {
-  position: absolute;
-  font-size: 18px;
-  color: #ff4d6d;
-  animation: floatUp 7s linear infinite;
-  opacity: 0.8;
+.floating-heart{
+  position:absolute;
+  color:#ff4d6d;
+  animation:floatUp linear infinite;
+  opacity:.8;
 }
 
-@keyframes floatUp {
-  from { transform: translateY(100vh) scale(0.6); }
-  to   { transform: translateY(-10vh) scale(1); }
+@keyframes floatUp{
+  from{ transform:translateY(100vh) scale(.6); }
+  to{ transform:translateY(-10vh) scale(1); }
 }
 
-/* Snow & petals */
-.fall {
-  position: absolute;
-  top: -20px;
-  animation: fall linear infinite;
+/* Snow & rose petals */
+.fall{
+  position:absolute;
+  top:-20px;
+  animation:fall linear infinite;
 }
 
-@keyframes fall {
-  to { transform: translateY(110vh) rotate(360deg); }
+@keyframes fall{
+  to{ transform:translateY(110vh) rotate(360deg); }
 }
 
 /* Footer */
-footer {
-  position: fixed;
-  bottom: 14px;
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  color: #8b0000;
-  font-weight: 500;
-  z-index: 50;
+footer{
+  position:fixed;
+  bottom:15px;
+  width:100%;
+  text-align:center;
+  font-size:16px;
+  color:#8b0000;
+  font-weight:500;
 }
 </style>
 </head>
@@ -142,70 +132,56 @@ footer {
 
 <div id="countdown">Loading…</div>
 
+<div class="top-heart"></div>
+
 <div class="card">
-  <div class="heart">
-    <span>S</span>
-  </div>
+  <h1>My Love ❤️</h1>
+  <p>This is our little love book.</p>
+  <p>Come back every day…<br>
+     I’ll turn a new page for you 💌</p>
 </div>
 
 <footer>From your man, <b>Parthiv Aditya</b> ❤️</footer>
 
 <script>
 /* Countdown */
-const targetDate = new Date("2026-02-14T00:00:00").getTime();
-
-setInterval(() => {
+const target = new Date("2026-02-14T00:00:00").getTime();
+setInterval(()=>{
   const now = new Date().getTime();
-  const diff = targetDate - now;
-
-  if (diff <= 0) {
-    document.getElementById("countdown").innerHTML = "Forever ♾️";
+  const d = target - now;
+  if(d<=0){
+    countdown.innerHTML="Forever ♾️";
     return;
   }
-
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const m = Math.floor((diff / (1000 * 60)) % 60);
-  const s = Math.floor((diff / 1000) % 60);
-
-  document.getElementById("countdown").innerHTML =
-    `Valentine in<br>${d}d ${h}h ${m}m ${s}s`;
-}, 1000);
+  const days=Math.floor(d/(1000*60*60*24));
+  const hrs=Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  const mins=Math.floor((d%(1000*60*60))/(1000*60));
+  countdown.innerHTML=`${days}d ${hrs}h ${mins}m`;
+},1000);
 
 /* Floating hearts */
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "floating-heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = 5 + Math.random() * 4 + "s";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 9000);
-}, 700);
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="floating-heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(12+Math.random()*14)+"px";
+  h.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},600);
 
-/* Snow */
-setInterval(() => {
-  const snow = document.createElement("div");
-  snow.className = "fall";
-  snow.innerHTML = "❄️";
-  snow.style.left = Math.random() * 100 + "vw";
-  snow.style.fontSize = 10 + Math.random() * 14 + "px";
-  snow.style.animationDuration = 8 + Math.random() * 6 + "s";
-  document.body.appendChild(snow);
-  setTimeout(() => snow.remove(), 12000);
-}, 500);
-
-/* Rose petals */
-setInterval(() => {
-  const petal = document.createElement("div");
-  petal.className = "fall";
-  petal.innerHTML = "🌸";
-  petal.style.left = Math.random() * 100 + "vw";
-  petal.style.fontSize = 14 + Math.random() * 12 + "px";
-  petal.style.animationDuration = 6 + Math.random() * 5 + "s";
-  document.body.appendChild(petal);
-  setTimeout(() => petal.remove(), 11000);
-}, 600);
+/* Snow + rose petals */
+setInterval(()=>{
+  const f=document.createElement("div");
+  f.className="fall";
+  f.innerHTML=Math.random()>0.5?"❄️":"🌹";
+  f.style.left=Math.random()*100+"vw";
+  f.style.fontSize=(12+Math.random()*16)+"px";
+  f.style.animationDuration=(6+Math.random()*6)+"s";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),12000);
+},400);
 </script>
 
 </body>
