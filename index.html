@@ -18,48 +18,47 @@ body{
   overflow:hidden;
 }
 
-/* HEADER */
-.header{
+/* 💓 HEART WITH S */
+.heart-container{
   position:fixed;
-  top:15px;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:20px;
-  font-family:'Pacifico',cursive;
-  font-size:24px;
-  z-index:5;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:6;
 }
 
-.name{
-  color:white;
-  text-shadow:0 0 10px rgba(255,255,255,.8),
-              0 0 20px rgba(255,105,135,.9);
-}
-
-/* HEART */
 .heart{
-  width:36px;
-  height:36px;
+  width:60px;
+  height:60px;
   background:#ff4d6d;
   transform:rotate(-45deg);
   animation:beat 1s infinite;
   position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.heart span{
+  transform:rotate(45deg);
+  color:white;
+  font-family:'Pacifico',cursive;
+  font-size:26px;
+  z-index:2;
 }
 
 .heart::before,
 .heart::after{
   content:"";
   position:absolute;
-  width:36px;
-  height:36px;
+  width:60px;
+  height:60px;
   background:#ff4d6d;
   border-radius:50%;
 }
 
-.heart::before{ top:-18px; left:0; }
-.heart::after{ left:18px; top:0; }
+.heart::before{ top:-30px; left:0; }
+.heart::after{ left:30px; top:0; }
 
 @keyframes beat{
   0%,100%{ transform:rotate(-45deg) scale(1); }
@@ -67,7 +66,25 @@ body{
   75%{ transform:rotate(-45deg) scale(1.25); }
 }
 
-/* ❄️ SLOW SNOW */
+/* 💕 FLOATING HEARTS */
+.floating-heart{
+  position:fixed;
+  bottom:-10px;
+  font-size:18px;
+  animation:floatUp linear forwards;
+  opacity:0.8;
+  pointer-events:none;
+  z-index:2;
+}
+
+@keyframes floatUp{
+  to{
+    transform:translateY(-110vh);
+    opacity:0;
+  }
+}
+
+/* ❄️ SNOW */
 .snowflake{
   position:fixed;
   top:-10px;
@@ -82,23 +99,32 @@ body{
   to{ transform:translateY(110vh); }
 }
 
-/* FOOTER */
-.footer{
+/* 🌹 ROSE PETALS */
+.petal{
   position:fixed;
-  bottom:15px;
-  width:100%;
-  text-align:center;
-  color:white;
-  font-size:14px;
-  z-index:5;
+  top:-10px;
+  width:14px;
+  height:20px;
+  background:radial-gradient(circle at top left,#ffb3c6,#e63946);
+  border-radius:50% 50% 50% 0;
+  opacity:0.85;
+  animation:petalFall linear forwards;
+  pointer-events:none;
+  z-index:2;
 }
 
-/* BOOK */
+@keyframes petalFall{
+  to{
+    transform:translate(80px,110vh) rotate(360deg);
+  }
+}
+
+/* 📖 BOOK */
 .book{
   width:320px;
   height:420px;
   perspective:2000px;
-  z-index:3;
+  z-index:4;
 }
 
 .page{
@@ -141,68 +167,75 @@ body{
   cursor:pointer;
 }
 
-/* MOBILE */
+/* 📱 MOBILE */
 @media(max-width:480px){
   .book{ transform:scale(0.9); }
-  .header{ font-size:20px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="name">Satya</div>
-  <div class="heart"></div>
-  <div class="name">Aadi</div>
+<!-- 💓 HEART -->
+<div class="heart-container">
+  <div class="heart"><span>S</span></div>
 </div>
-
-<div class="footer">forever & always ❤️</div>
-
-<!-- HEARTBEAT SOUND -->
-<audio id="beatSound" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4f2cfe7b30.mp3" type="audio/mpeg">
-</audio>
 
 <div class="book">
   <div class="page" id="page"></div>
 </div>
 
 <script>
-/* ❤️ HEART SOUND */
-const beatSound = document.getElementById("beatSound");
-document.body.addEventListener("click",()=>beatSound.play(),{once:true});
+/* 💕 FLOATING HEARTS */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="floating-heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(Math.random()*12+16)+"px";
+  h.style.animationDuration=(Math.random()*5+6)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+},700);
 
-/* ❄️ CONTINUOUS SLOW SNOW */
-function createSnow(){
-  const snow = document.createElement("div");
-  snow.className = "snowflake";
-  snow.innerHTML = "❄";
-  snow.style.left = Math.random()*100 + "vw";
-  snow.style.fontSize = (Math.random()*8 + 12) + "px";
-  snow.style.animationDuration = (Math.random()*6 + 10) + "s";
-  document.body.appendChild(snow);
-  setTimeout(()=>snow.remove(),16000);
-}
-setInterval(createSnow,700);
+/* ❄️ SNOW */
+setInterval(()=>{
+  const s=document.createElement("div");
+  s.className="snowflake";
+  s.innerHTML="❄";
+  s.style.left=Math.random()*100+"vw";
+  s.style.fontSize=(Math.random()*8+12)+"px";
+  s.style.animationDuration=(Math.random()*6+10)+"s";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),16000);
+},900);
 
-/* LOVE BOOK LOGIC */
-const page = document.getElementById("page");
-const d = new Date();
-const day = d.getDate();
-const month = d.getMonth() + 1;
-let current = day;
+/* 🌹 ROSE PETALS */
+setInterval(()=>{
+  const p=document.createElement("div");
+  p.className="petal";
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDuration=(Math.random()*6+8)+"s";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),16000);
+},600);
 
-function show(c){ page.innerHTML = c; }
+/* 📖 LOVE BOOK LOGIC */
+const page=document.getElementById("page");
+const d=new Date();
+const day=d.getDate();
+const month=d.getMonth()+1;
+let current=day;
 
-let content = `
+function show(c){ page.innerHTML=c; }
+
+let content=`
 <h1>My Love ❤️</h1>
 <p>This is our little love book.</p>
 <p>Come back every day…<br>I’ll turn a new page for you 💌</p>
 `;
 
-if(month===2 && day>=7) content = getPage(day);
+if(month===2 && day>=7) content=getPage(day);
 show(content);
 
 function flip(){
@@ -217,16 +250,16 @@ function flip(){
 
 function getPage(d){
   const p={
-    7:`<h1>🌹 Rose Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🌹</div><div class="msg">Your man sent me to you ❤️</div>${day>=8?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
+    7:`<h1>🌹 Rose Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🌹</div><div class="msg">For you ❤️</div>${day>=8?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
     8:`<h1>💌 Propose Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">💌</div><div class="msg">I love you ❤️</div>${day>=9?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
     9:`<h1>🍫 Chocolate Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🍫</div><div class="msg">Sweet like you 🍫❤️</div>${day>=10?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
-    10:`<h1>🧸 Teddy Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🧸</div><div class="msg">Hug you tight ❤️</div>${day>=11?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
-    11:`<h1>🤝 Promise Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🤝</div><div class="msg">Always yours ❤️</div>${day>=12?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
+    10:`<h1>🧸 Teddy Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🧸</div><div class="msg">Big hug ❤️</div>${day>=11?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
+    11:`<h1>🤝 Promise Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🤝</div><div class="msg">Always ❤️</div>${day>=12?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
     12:`<h1>🤗 Hug Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">🤗</div><div class="msg">Virtual hug ❤️</div>${day>=13?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
     13:`<h1>😘 Kiss Day</h1><div class="big" onclick="this.nextElementSibling.style.display='block'">😘</div><div class="msg">Endless kisses ❤️</div>${day>=14?'<div class="turn" onclick="flip()">Turn Page ➜</div>':''}`,
-    14:`<h1>🎈 Valentine’s Day</h1><div class="big" onclick="alert('Happy Valentine’s Day my love ❤️')">🎈</div><p>Pop it ❤️</p>`
+    14:`<h1>🎈 Valentine’s Day</h1><div class="big" onclick="alert('Happy Valentine’s Day ❤️')">🎈</div><p>Pop it ❤️</p>`
   };
-  return p[d] || content;
+  return p[d]||content;
 }
 </script>
 
