@@ -32,7 +32,7 @@ body{
   text-align:center;
 }
 
-/* Beating Heart */
+/* Heart */
 .top-heart{
   position:fixed;
   top:18px;
@@ -88,27 +88,10 @@ body{
   position:relative;
 }
 
-/* Small hearts background */
-.book::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background-image:
-    radial-gradient(#ff9eb3 1.5px, transparent 1.5px),
-    radial-gradient(#ffc1cc 1.5px, transparent 1.5px);
-  background-size:28px 28px;
-  background-position:0 0,14px 14px;
-  opacity:0.25;
-  pointer-events:none;
-}
-
-/* Pages */
 .pages{
   display:flex;
   height:100%;
   transition:transform .7s ease;
-  position:relative;
-  z-index:1;
 }
 
 .page{
@@ -123,7 +106,7 @@ body{
   text-align:center;
 }
 
-/* Page title & timer (always visible) */
+/* Always visible */
 .page-title{
   font-weight:600;
   color:#ff4d6d;
@@ -136,7 +119,7 @@ body{
   margin-bottom:12px;
 }
 
-/* Blur logic */
+/* Blurred content */
 .page-content{
   transition:filter .6s ease;
 }
@@ -190,7 +173,7 @@ footer{
   </div>
 </div>
 
-<!-- Valentine Week Pages -->
+<!-- Valentine Week -->
 <div class="page locked" data-date="2026-02-07">
   <div class="page-title">🌹 Rose Day</div>
   <div class="page-timer" id="rose"></div>
@@ -233,10 +216,27 @@ footer{
   <div class="page-content">You are my always ❤️</div>
 </div>
 
+<!-- Final Feelings Page -->
+<div class="page locked" data-date="2026-02-14">
+  <div class="page-title">💌 My Heart</div>
+  <div class="page-timer">Unlocks on Valentine’s Day ❤️</div>
+  <div class="page-content">
+    From the first smile to every fight,<br>
+    every laugh to every silence —<br>
+    I choose you, always ❤️<br><br>
+
+    <textarea placeholder="Write your feelings here… 💕"
+      style="width:100%;height:90px;border-radius:12px;
+      border:1px solid #ffb3b3;padding:10px;font-family:Poppins;resize:none;">
+    </textarea>
+  </div>
+</div>
+
 </div>
 
 <div class="turn prev" onclick="prevPage()">← Previous</div>
 <div class="turn next" onclick="nextPage()">Turn →</div>
+
 </div>
 </div>
 
@@ -269,17 +269,41 @@ function timeLeft(date){
   return `${d}d ${h}h ${m}m ${s}s`;
 }
 
+const map={
+  rose:"2026-02-07",
+  propose:"2026-02-08",
+  choco:"2026-02-09",
+  teddy:"2026-02-10",
+  promise:"2026-02-11",
+  kiss:"2026-02-13",
+  valentine:"2026-02-14"
+};
+
 setInterval(()=>{
   document.getElementById("countdown").innerHTML=
     "Valentine 💖<br>"+timeLeft("2026-02-14");
 
-  document.querySelectorAll(".page").forEach(p=>{
-    const date=p.dataset.date;
-    const timer=p.querySelector(".page-timer");
-    if(date && timer) timer.innerText=timeLeft(date);
-    if(date && new Date()>=new Date(date)) p.classList.remove("locked");
+  for(const id in map){
+    const el=document.getElementById(id);
+    if(el) el.innerText=timeLeft(map[id]);
+  }
+
+  document.querySelectorAll(".page.locked").forEach(p=>{
+    if(new Date()>=new Date(p.dataset.date)){
+      p.classList.remove("locked");
+    }
   });
 },1000);
+
+/* Save comment */
+document.addEventListener("input",e=>{
+  if(e.target.tagName==="TEXTAREA")
+    localStorage.setItem("loveComment",e.target.value);
+});
+window.onload=()=>{
+  const t=document.querySelector("textarea");
+  if(t) t.value=localStorage.getItem("loveComment")||"";
+};
 </script>
 
 </body>
