@@ -244,34 +244,37 @@ footer{
 <footer>From your man, <b>Parthiv Aditya</b> ❤️</footer>
 
 <script>
-const pages=document.getElementById("pages");
-const pageEls=[...document.querySelectorAll(".page")];
-let index=0;
+const pages = document.getElementById("pages");
+const pageEls = [...document.querySelectorAll(".page")];
+let index = 0;
 
+/* NAVIGATION – no blocking */
 function next(){
-  if(index >= pageEls.length-1) return;
-  if(pageEls[index+1].classList.contains("locked")) return;
-  index++;
-  pages.style.transform=`translateX(-${index*100}%)`;
+  if(index < pageEls.length - 1){
+    index++;
+    pages.style.transform = `translateX(-${index*100}%)`;
+  }
 }
-
 function prev(){
-  if(index<=0) return;
-  index--;
-  pages.style.transform=`translateX(-${index*100}%)`;
+  if(index > 0){
+    index--;
+    pages.style.transform = `translateX(-${index*100}%)`;
+  }
 }
 
+/* COUNTDOWN FORMAT */
 function timeLeft(date){
-  const diff=new Date(date)-new Date();
-  if(diff<=0) return "Unlocked ❤️";
-  const d=Math.floor(diff/86400000);
-  const h=Math.floor(diff%86400000/3600000);
-  const m=Math.floor(diff%3600000/60000);
-  const s=Math.floor(diff%60000/1000);
+  const diff = new Date(date) - new Date();
+  if(diff <= 0) return "Unlocked ❤️";
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor(diff % 86400000 / 3600000);
+  const m = Math.floor(diff % 3600000 / 60000);
+  const s = Math.floor(diff % 60000 / 1000);
   return `${d}d ${h}h ${m}m ${s}s`;
 }
 
-const map={
+/* DATES */
+const map = {
   rose:"2026-02-07",
   propose:"2026-02-08",
   choco:"2026-02-09",
@@ -281,21 +284,23 @@ const map={
   valentine:"2026-02-14"
 };
 
+/* UPDATE TIMERS */
 setInterval(()=>{
-  document.getElementById("countdown").innerHTML=
-    "Valentine 💖<br>"+timeLeft("2026-02-14");
+  document.getElementById("countdown").innerHTML =
+    "Valentine 💖<br>" + timeLeft("2026-02-14");
 
   for(const id in map){
-    const el=document.getElementById(id);
-    if(el) el.innerText=timeLeft(map[id]);
+    const el = document.getElementById(id);
+    if(el) el.innerText = timeLeft(map[id]);
   }
-
-  document.querySelectorAll(".page.locked").forEach(p=>{
-    if(new Date()>=new Date(p.dataset.date)){
-      p.classList.remove("locked");
-    }
-  });
 },1000);
+
+/* AUTO UNLOCK (for testing) */
+setTimeout(()=>{
+  document.querySelectorAll(".page.locked").forEach(p=>{
+    p.classList.remove("locked");
+  });
+},3000);
 </script>
 
 </body>
