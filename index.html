@@ -19,7 +19,7 @@ body{
   justify-content:center;
 }
 
-/* Countdown */
+/* Countdown top */
 #countdown{
   position:fixed;
   top:12px;
@@ -44,7 +44,7 @@ body{
   overflow:hidden;
 }
 
-/* Spiral */
+/* Spiral binding */
 .spiral{
   position:absolute;
   left:14px;
@@ -72,24 +72,24 @@ body{
   color:#ff5e78;
 }
 
-/* Pages container */
+/* Book */
 .book{
   position:relative;
   height:calc(100% - 80px);
   overflow:hidden;
 }
 
-/* Pages */
+/* Pages row */
 .pages{
   display:flex;
   height:100%;
-  transition:transform .5s ease;
+  transition:transform .45s ease;
 }
 
-/* Single page */
+/* Page */
 .page{
   min-width:100%;
-  padding:30px 26px 26px 46px;
+  padding:28px 26px 26px 46px;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -98,7 +98,7 @@ body{
   line-height:1.7;
 }
 
-/* Titles */
+/* Same layout on all pages */
 .page-title{
   font-weight:600;
   color:#ff4d6d;
@@ -108,10 +108,13 @@ body{
 .page-timer{
   font-size:12px;
   color:#555;
-  margin-bottom:12px;
+  margin-bottom:14px;
 }
 
-/* Locked blur */
+/* Blur only content */
+.page-content{
+  transition:filter .6s ease;
+}
 .locked .page-content{
   filter:blur(6px);
 }
@@ -156,47 +159,74 @@ footer{
   <div class="book">
     <div class="pages" id="pages">
 
+      <!-- Intro -->
       <div class="page">
+        <div class="page-title">💖 Our Love</div>
+        <div class="page-timer">A page unlocks every day ✨</div>
         <div class="page-content">
-          My Love ❤️<br><br>
-          This is our little love diary 💖<br>
-          Come back every day…<br>
-          A new page unlocks ✨
+          This is our little spiral diary ❤️<br><br>
+          Come back every day and feel my love 💕
         </div>
       </div>
 
+      <!-- Rose Day -->
       <div class="page locked" data-date="2026-02-07">
         <div class="page-title">🌹 Rose Day</div>
         <div class="page-timer" id="rose"></div>
         <div class="page-content">A rose from my heart to yours ❤️</div>
       </div>
 
+      <!-- Propose -->
       <div class="page locked" data-date="2026-02-08">
         <div class="page-title">💍 Propose Day</div>
         <div class="page-timer" id="propose"></div>
         <div class="page-content">Will you be mine forever? 💖</div>
       </div>
 
+      <!-- Chocolate -->
       <div class="page locked" data-date="2026-02-09">
         <div class="page-title">🍫 Chocolate Day</div>
         <div class="page-timer" id="choco"></div>
         <div class="page-content">Sweet like chocolate, just like you 🍫</div>
       </div>
 
+      <!-- Teddy -->
       <div class="page locked" data-date="2026-02-10">
         <div class="page-title">🧸 Teddy Day</div>
         <div class="page-timer" id="teddy"></div>
         <div class="page-content">A teddy hug from me to you 🧸</div>
       </div>
 
+      <!-- Promise -->
+      <div class="page locked" data-date="2026-02-11">
+        <div class="page-title">🤝 Promise Day</div>
+        <div class="page-timer" id="promise"></div>
+        <div class="page-content">I promise you my forever ❤️</div>
+      </div>
+
+      <!-- Kiss -->
+      <div class="page locked" data-date="2026-02-13">
+        <div class="page-title">💋 Kiss Day</div>
+        <div class="page-timer" id="kiss"></div>
+        <div class="page-content">A kiss sealed with love 😘</div>
+      </div>
+
+      <!-- Valentine -->
       <div class="page locked" data-date="2026-02-14">
-        <div class="page-title">💌 My Heart</div>
-        <div class="page-timer">Unlocks on Valentine’s Day ❤️</div>
+        <div class="page-title">❤️ Valentine’s Day</div>
+        <div class="page-timer" id="valentine"></div>
+        <div class="page-content">You are my always ❤️</div>
+      </div>
+
+      <!-- Final page -->
+      <div class="page locked" data-date="2026-02-14">
+        <div class="page-title">💌 Your Feelings</div>
+        <div class="page-timer">Unlocked after Valentine’s Day ❤️</div>
         <div class="page-content">
-          I choose you — today and always ❤️<br><br>
-          <textarea placeholder="Write your feelings… 💕"
+          Write what you feel for us 💕<br><br>
+          <textarea placeholder="Type your feelings here…"
             style="width:100%;height:90px;border-radius:12px;
-            border:1px solid #ffb3b3;padding:10px;font-family:Poppins;">
+            border:1px solid #ffb3b3;padding:10px;font-family:Poppins;resize:none;">
           </textarea>
         </div>
       </div>
@@ -237,12 +267,28 @@ function timeLeft(date){
   const d=Math.floor(diff/86400000);
   const h=Math.floor(diff%86400000/3600000);
   const m=Math.floor(diff%3600000/60000);
-  return `${d}d ${h}h ${m}m`;
+  const s=Math.floor(diff%60000/1000);
+  return `${d}d ${h}h ${m}m ${s}s`;
 }
+
+const map={
+  rose:"2026-02-07",
+  propose:"2026-02-08",
+  choco:"2026-02-09",
+  teddy:"2026-02-10",
+  promise:"2026-02-11",
+  kiss:"2026-02-13",
+  valentine:"2026-02-14"
+};
 
 setInterval(()=>{
   document.getElementById("countdown").innerHTML=
     "Valentine 💖<br>"+timeLeft("2026-02-14");
+
+  for(const id in map){
+    const el=document.getElementById(id);
+    if(el) el.innerText=timeLeft(map[id]);
+  }
 
   document.querySelectorAll(".page.locked").forEach(p=>{
     if(new Date()>=new Date(p.dataset.date)){
