@@ -10,7 +10,7 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
+  font-family:Poppins, sans-serif;
 }
 
 body{
@@ -19,19 +19,20 @@ body{
 }
 
 /* Floating hearts */
-body::before{
-  content:"❤️ 💕 💖 💗 💘";
+.heart{
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  font-size:18px;
-  opacity:0.08;
-  pointer-events:none;
+  bottom:-20px;
+  animation:float 6s linear infinite;
+  font-size:14px;
+  opacity:0.4;
 }
 
-/* Container */
+@keyframes float{
+  from{transform:translateY(0);}
+  to{transform:translateY(-120vh);}
+}
+
+/* Layout */
 .container{
   width:100vw;
   height:100vh;
@@ -43,21 +44,17 @@ body::before{
 .book{
   flex:1;
   overflow:hidden;
-  position:relative;
 }
 
-/* Pages wrapper */
 #pages{
   display:flex;
-  width:100%;
   height:100%;
   transition:0.6s ease;
 }
 
-/* Single page */
+/* Page */
 .page{
   min-width:100%;
-  height:100%;
   padding:30px 20px;
   display:flex;
   flex-direction:column;
@@ -66,70 +63,65 @@ body::before{
   text-align:center;
 }
 
-/* Locked blur */
+/* Blur logic */
 .page.locked .content{
   filter:blur(8px);
-  pointer-events:none;
 }
 
-/* Visible even when locked */
-.day-title{
+.day{
   font-size:26px;
   font-weight:700;
-  color:#e6005c;
-  margin-bottom:15px;
+  color:#d1005c;
+  margin-bottom:10px;
 }
 
 .countdown{
-  font-size:18px;
+  font-size:16px;
   font-weight:600;
-  color:#333;
+  margin-bottom:20px;
 }
 
 /* Buttons */
 .controls{
   display:flex;
   justify-content:space-between;
-  padding:12px 20px;
+  padding:10px 20px;
 }
 
 button{
   background:none;
   border:none;
   font-size:18px;
+  color:#d1005c;
   font-weight:600;
-  color:#e6005c;
 }
 
 #pageIndicator{
   text-align:center;
   font-weight:600;
-  margin-bottom:10px;
+  margin-bottom:5px;
+}
+
+/* Rose animation */
+.rose{
+  position:fixed;
+  bottom:-40px;
+  font-size:22px;
+  animation:rise 4s linear forwards;
+}
+
+@keyframes rise{
+  to{transform:translateY(-120vh) rotate(360deg); opacity:0;}
 }
 
 /* Textarea */
 textarea{
   width:90%;
   height:120px;
-  border-radius:12px;
   border:none;
-  padding:15px;
-  font-size:16px;
-  resize:none;
-}
-
-/* 🌹 Rose animation */
-.rose{
-  position:fixed;
-  bottom:-40px;
-  font-size:24px;
-  animation:fly 4s linear forwards;
-  pointer-events:none;
-}
-
-@keyframes fly{
-  from{transform:translateY(0) rotate(0deg);opacity:1;}
-  to{transform:translateY(-120vh) rotate(360deg);opacity:0;}
+  border-radius:12px;
+  padding:12px;
+  font-size:15px;
 }
 </style>
 </head>
@@ -141,119 +133,92 @@ textarea{
   <div class="book">
     <div id="pages">
 
-      <!-- Rose Day -->
-      <div class="page locked" data-date="2026-02-07">
-        <div class="day-title">🌹 Rose Day</div>
-        <div class="countdown" id="rose"></div>
+      <!-- 🌹 Rose Day (UNLOCKED) -->
+      <div class="page">
+        <div class="day">🌹 Rose Day</div>
+        <div class="countdown">Unlocked ❤️</div>
         <div class="content">
           <p>You are the rose of my life 🌹</p>
         </div>
       </div>
 
-      <!-- Propose Day -->
-      <div class="page locked" data-date="2026-02-08">
-        <div class="day-title">💍 Propose Day</div>
-        <div class="countdown" id="propose"></div>
+      <!-- Propose -->
+      <div class="page locked">
+        <div class="day">💍 Propose Day</div>
+        <div class="countdown">Coming Soon</div>
         <div class="content">
-          <p>Will you be mine forever? 💖</p>
+          <p>Will you be mine forever?</p>
         </div>
       </div>
 
-      <!-- Chocolate Day -->
-      <div class="page locked" data-date="2026-02-09">
-        <div class="day-title">🍫 Chocolate Day</div>
-        <div class="countdown" id="choco"></div>
+      <!-- Chocolate -->
+      <div class="page locked">
+        <div class="day">🍫 Chocolate Day</div>
+        <div class="countdown">Coming Soon</div>
         <div class="content">
-          <p>Life is sweeter with you 🍫</p>
+          <p>Life is sweeter with you</p>
         </div>
       </div>
 
       <!-- Valentine -->
-      <div class="page locked" data-date="2026-02-14">
-        <div class="day-title">❤️ Valentine’s Day</div>
-        <div class="countdown" id="valentine"></div>
+      <div class="page locked">
+        <div class="day">❤️ Valentine’s Day</div>
+        <div class="countdown">Coming Soon</div>
         <div class="content">
-          <p>Write your feelings 💌</p>
-          <textarea placeholder="Type your love here..."></textarea>
+          <textarea placeholder="Write your feelings..."></textarea>
         </div>
       </div>
 
     </div>
   </div>
 
-  <div id="pageIndicator"></div>
+  <div id="pageIndicator">1 / 4</div>
 
   <div class="controls">
-    <button onclick="prevPage()">← Prev</button>
-    <button onclick="nextPage()">Next →</button>
+    <button onclick="prev()">← Prev</button>
+    <button onclick="next()">Next →</button>
   </div>
 
 </div>
 
 <script>
-const pagesWrap=document.getElementById("pages");
-const pages=[...pagesWrap.children];
-const indicator=document.getElementById("pageIndicator");
+/* Page logic */
 let index=0;
+const pages=document.getElementById("pages");
+const total=4;
+const indicator=document.getElementById("pageIndicator");
 
-function updatePages(){
-  pagesWrap.style.transform=`translateX(-${index*100}%)`;
-  indicator.innerText=`${index+1} / ${pages.length}`;
+function update(){
+  pages.style.transform=`translateX(-${index*100}%)`;
+  indicator.innerText=`${index+1} / ${total}`;
 }
-updatePages();
+function next(){ if(index<total-1){index++;update();}}
+function prev(){ if(index>0){index--;update();}}
+update();
 
-function nextPage(){ if(index<pages.length-1){index++;updatePages();}}
-function prevPage(){ if(index>0){index--;updatePages();}}
-
-/* Countdown */
-function timeLeft(date){
-  const diff=new Date(date)-new Date();
-  if(diff<=0) return "Unlocked ❤️";
-  const d=Math.floor(diff/86400000);
-  const h=Math.floor(diff%86400000/3600000);
-  const m=Math.floor(diff%3600000/60000);
-  const s=Math.floor(diff%60000/1000);
-  return `${d}d ${h}h ${m}m ${s}s`;
-}
-
-const map={
-  rose:"2026-02-07",
-  propose:"2026-02-08",
-  choco:"2026-02-09",
-  valentine:"2026-02-14"
-};
-
-/* 🌹 Rose blast only once */
-let roseBlasted=false;
-function blastRoses(){
-  if(roseBlasted) return;
-  roseBlasted=true;
-  for(let i=0;i<35;i++){
-    const r=document.createElement("div");
-    r.className="rose";
-    r.innerText="🌹";
-    r.style.left=Math.random()*100+"vw";
-    r.style.fontSize=18+Math.random()*14+"px";
-    document.body.appendChild(r);
-    setTimeout(()=>r.remove(),5000);
-  }
+/* 🌹 Rose animation (VISIBLE NOW) */
+for(let i=0;i<25;i++){
+  const r=document.createElement("div");
+  r.className="rose";
+  r.innerText="🌹";
+  r.style.left=Math.random()*100+"vw";
+  r.style.fontSize=16+Math.random()*14+"px";
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(),4000);
 }
 
+/* Floating hearts */
 setInterval(()=>{
-  for(const id in map){
-    const el=document.getElementById(id);
-    if(el) el.innerText=timeLeft(map[id]);
-  }
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=10+Math.random()*10+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},500);
 
-  document.querySelectorAll(".page.locked").forEach(p=>{
-    if(new Date()>=new Date(p.dataset.date)){
-      p.classList.remove("locked");
-      if(p.dataset.date==="2026-02-07") blastRoses();
-    }
-  });
-},1000);
-
-/* Save comment */
+/* Save textarea */
 document.addEventListener("input",e=>{
   if(e.target.tagName==="TEXTAREA")
     localStorage.setItem("love",e.target.value);
