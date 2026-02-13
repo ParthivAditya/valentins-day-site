@@ -164,172 +164,6 @@ footer{
     opacity:0;
   }
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Love ❤️</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-
-body{
-  height:100vh;
-  overflow:hidden;
-  background:linear-gradient(180deg,#ffb3b3,#ffd6cc);
-  font-family:'Poppins',sans-serif;
-}
-
-/* Countdown */
-#countdown{
-  position:fixed;
-  top:10px;
-  right:10px;
-  background:rgba(255,255,255,.9);
-  padding:8px 12px;
-  border-radius:14px;
-  font-size:12px;
-  font-weight:600;
-  color:#ff3b6b;
-  z-index:20;
-  text-align:center;
-}
-
-/* Heart */
-.top-heart{
-  position:fixed;
-  top:18px;
-  left:50%;
-  transform:translateX(-50%) rotate(-45deg);
-  width:42px;height:42px;
-  background:#ff4d6d;
-  animation:beat 2.5s infinite;
-}
-.top-heart::before,.top-heart::after{
-  content:"";
-  width:42px;height:42px;
-  background:#ff4d6d;
-  border-radius:50%;
-  position:absolute;
-}
-.top-heart::before{top:-21px}
-.top-heart::after{left:21px}
-@keyframes beat{
-  50%{transform:translateX(-50%) rotate(-45deg) scale(1.08)}
-}
-
-/* Card */
-.card{
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  width:92vw;
-  max-width:360px;
-  height:82vh;
-  background:#fffaf3;
-  border-radius:26px;
-  padding:18px;
-  box-shadow:0 25px 45px rgba(0,0,0,.18);
-  text-align:center;
-}
-
-.card h1{
-  font-family:'Pacifico',cursive;
-  color:#ff5e78;
-  font-size:24px;
-}
-
-/* Book */
-.book{
-  margin-top:15px;
-  width:100%;
-  height:65%;
-  background:#fffdf7;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 15px 25px rgba(0,0,0,.15);
-  position:relative;
-}
-
-.pages{
-  display:flex;
-  height:100%;
-  transition:transform .7s ease;
-}
-
-.page{
-  min-width:100%;
-  padding:18px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  font-size:14px;
-  line-height:1.6;
-  text-align:center;
-}
-
-.page-title{
-  font-weight:600;
-  color:#ff4d6d;
-  margin-bottom:6px;
-  font-size:16px;
-}
-.page-timer{
-  font-size:12px;
-  color:#555;
-  margin-bottom:12px;
-}
-
-.page-content{transition:filter .6s ease}
-.locked .page-content{filter:blur(6px)}
-
-.turn{
-  position:absolute;
-  bottom:10px;
-  font-family:'Pacifico',cursive;
-  font-size:14px;
-  color:#ff4d6d;
-  cursor:pointer;
-}
-.turn.prev{left:14px}
-.turn.next{right:14px}
-
-footer{
-  position:fixed;
-  bottom:10px;
-  width:100%;
-  text-align:center;
-  font-size:14px;
-  color:#8b0000;
-}
-
-/* falling */
-.fall{
-  position:fixed;
-  top:-40px;
-  pointer-events:none;
-  z-index:3;
-  animation:fall linear forwards;
-}
-@keyframes fall{
-  to{
-    transform:translateY(110vh) rotate(360deg);
-    opacity:0.8;
-  }
-@keyframes floatUp{
-  from{
-    transform:translateY(0);
-    opacity:1;
-  }
-  to{
-    transform:translateY(-120vh);
-    opacity:0;
-  }
-}
 
 </style>
 </head>
@@ -560,253 +394,46 @@ function valentineFinalSurprise(){
 valentineFinalSurprise();
 
 </script>
-
-</body>
-</html>
-
-</style>
-</head>
-
-<body>
-
-<div id="countdown"></div>
-<div class="top-heart"></div>
-
-<div class="card">
-<h1>My Love ❤️</h1>
-
-<div class="book">
-<div class="pages" id="pages">
-
-<!-- Intro -->
-<div class="page">
-  <div class="page-content">
-    My Love ❤️<br><br>
-    This is our little love book 💖<br>
-    Come back every day…<br>
-    A new page will unlock ✨
-  </div>
-</div>
-
-<!-- Rose -->
-<div class="page locked" data-date="2026-02-07">
-  <div class="page-title">🌹 Rose Day</div>
-  <div class="page-timer" id="rose"></div>
-  <div class="page-content">
-    A rose from my heart to yours....be my Rose i will protect you as a thorne...
-    All roses are yours all thornes are mine ❤️
-  </div>
-</div>
-
-<!-- Propose -->
-<div class="page locked" data-date="2026-02-08">
-  <div class="page-title">💍 Propose Day</div>
-  <div class="page-timer" id="propose"></div>
-  <div class="page-content">Will you be mine forever if possible? 💖</div>
-</div>
-
-<!-- Chocolate -->
-<div class="page locked" data-date="2026-02-09">
-  <div class="page-title">🍫 Chocolate Day</div>
-  <div class="page-timer" id="choco"></div>
-  <div class="page-content">You don't need to give me chocolates because your are sweeter than that...you are my chocolate🍫</div>
-</div>
-
-<!-- Teddy -->
-<div class="page locked" data-date="2026-02-10">
-  <div class="page-title">🧸 Teddy Day</div>
-  <div class="page-timer" id="teddy"></div>
-  <div class="page-content">Trust me we will make two real living teddys together🤭...till then be my teddy🧸</div>
-</div>
-
-<!-- Promise -->
-<div class="page locked" data-date="2026-02-11">
-  <div class="page-title">🤝 Promise Day</div>
-  <div class="page-timer" id="promise"></div>
-  <div class="page-content">I promise you that i will not brake every promis that i make to you and i promise that i am your MAN ❤️</div>
-</div>
-
-<!-- Hug (missing fixed) -->
-<div class="page locked" data-date="2026-02-12">
-  <div class="page-title">🤗 Hug Day</div>
-  <div class="page-timer" id="hug"></div>
-  <div class="page-content">Wherever you are in the world..there will be a safe plae under my arms....warmth hug waiting for you always 🤗❤️</div>
-</div>
-
-<!-- Kiss -->
-<div class="page locked" data-date="2026-02-13">
-  <div class="page-title">💋 Kiss Day</div>
-  <div class="page-timer" id="kiss"></div>
-  <div class="page-content">A kiss sealed with love 😘</div>
-</div>
-
-<!-- Valentine -->
-<div class="page locked" data-date="2026-02-14">
-  <div class="page-title">❤️ Valentine’s Day</div>
-  <div class="page-timer" id="valentine"></div>
-  <div class="page-content">You are my always ❤️</div>
-</div>
-
-<!-- Heart letter -->
-<div class="page locked" data-date="2026-02-14">
-  <div class="page-title">💌 My Heart</div>
-  <div class="page-timer">Unlocks on Valentine’s Day ❤️</div>
-  <div class="page-content">
-    From the first smile to every fight,<br>
-    I choose you always ❤️<br><br>
-    <textarea placeholder="Write your feelings…"
-      style="width:100%;height:90px;border-radius:12px;
-      border:1px solid #ffb3b3;padding:10px;font-family:Poppins;resize:none;"></textarea>
-  </div>
-</div>
-<!-- OUR MEMORY LAST PAGE -->
-<div class="page-content">
-Our most beautiful moment together ❤️<br><br>
-
-<img src="https://i.ibb.co/RG71CDSY/Valentines-day-pic.jpg"
-style="width:85%;
-border-radius:18px;
-margin-bottom:12px;
-box-shadow:0 15px 30px rgba(0,0,0,0.3);">
-
-<div class="love-text">My Favorite Person ❤️</div>
-</div>
-    
-
-    <br>
-    I will choose you in every lifetime 💍❤️
-  </div>
-</div>
-
-</div>
-
-<div class="turn prev" onclick="prevPage()">← Previous</div>
-<div class="turn next" onclick="nextPage()">Turn →</div>
-</div>
-</div>
-
-<footer>From your man, <b>Parthiv Aditya</b> ❤️</footer>
-
 <script>
-const pages=document.getElementById("pages");
-let index=0;
-
-function nextPage(){
-  if(index < pages.children.length-1){
-    index++;
-    pages.style.transform = `translateX(-${index*100}%)`;
-  }
-}
-function prevPage(){
-  if(index>0){
-    index--;
-    pages.style.transform = `translateX(-${index*100}%)`;
-  }
-}
-
-function timeLeft(date){
-  const diff=new Date(date)-new Date();
-  if(diff<=0) return "Unlocked ❤️";
-  const d=Math.floor(diff/86400000);
-  const h=Math.floor(diff%86400000/3600000);
-  const m=Math.floor(diff%3600000/60000);
-  const s=Math.floor(diff%60000/1000);
-  return `${d}d ${h}h ${m}m ${s}s`;
-}
-
-const map={
-  rose:"2026-02-07",
-  propose:"2026-02-08",
-  choco:"2026-02-09",
-  teddy:"2026-02-10",
-  promise:"2026-02-11",
-  hug:"2026-02-12",
-  kiss:"2026-02-13",
-  valentine:"2026-02-14"
-};
-
-setInterval(()=>{
-  document.getElementById("countdown").innerHTML =
-    "Valentine's Day 💖<br>"+timeLeft("2026-02-14");
-
-  for(const id in map){
-    const el=document.getElementById(id);
-    if(el) el.innerText=timeLeft(map[id]);
-  }
-
-  document.querySelectorAll(".page.locked").forEach(p=>{
-    if(new Date()>=new Date(p.dataset.date)){
-      p.classList.remove("locked");
-    }
-  });
-},1000);
-
-/* falling effect */
-setInterval(()=>{
-  const el=document.createElement("div");
-  el.className="fall";
-
-  const emojis=["❄️","🧸","🌸","🍃"];
-  el.innerText = emojis[Math.floor(Math.random()*emojis.length)];
-
-  el.style.left=Math.random()*100+"vw";
-  el.style.fontSize=(16+Math.random()*24)+"px";
-  el.style.animationDuration=(4+Math.random()*5)+"s";
-
-  document.body.appendChild(el);
-  setTimeout(()=>el.remove(),9000);
-},300);
-
-/* save textarea */
-document.addEventListener("input",e=>{
-  if(e.target.tagName==="TEXTAREA")
-    localStorage.setItem("loveComment",e.target.value);
-});
-window.onload=()=>{
-  const t=document.querySelector("textarea");
-  if(t) t.value=localStorage.getItem("loveComment")||"";
-};
-function valentineFinalSurprise(){
-  const today=new Date().toISOString().slice(0,10);
-  if(today==="2026-02-14"){
-    setTimeout(()=>{
-      alert("Happy Valentine’s Day My Love ❤️\nYou are my forever and always 💍");
-    },3000);
-
-    // floating hearts burst
-    for(let i=0;i<40;i++){
-      setTimeout(()=>{
-        const heart=document.createElement("div");
-        heart.innerText="❤️";
-        heart.style.position="fixed";
-        heart.style.left=Math.random()*100+"vw";
-        heart.style.top="100vh";
-        heart.style.fontSize=(20+Math.random()*25)+"px";
-        heart.style.zIndex="999";
-        heart.style.animation="floatUp 3s linear forwards";
-        document.body.appendChild(heart);
-        setTimeout(()=>heart.remove(),3000);
-      },i*120);
-    }
-  }
-}
-valentineFinalSurprise();
-
-</script>
-<script>
+/* floating hearts */
 setInterval(() => {
-    let heart = document.createElement("div");
+
+    const heart = document.createElement("div");
     heart.innerHTML = "❤️";
-    heart.classList.add("heart");
-    heart.style.left = Math.random()*100 + "vw";
-    heart.style.fontSize = (20 + Math.random()*30) + "px";
+    heart.className = "float-heart";
     document.body.appendChild(heart);
 
-    setTimeout(()=>{
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+    setTimeout(() => {
         heart.remove();
-    },6000);
-},300);
+    }, 6000);
+
+}, 400);
 </script>
+
+<style>
+.float-heart{
+    position:fixed;
+    bottom:-20px;
+    z-index:0;
+    pointer-events:none;
+    animation: floatUp linear forwards;
+}
+
+@keyframes floatUp{
+    from{
+        transform: translateY(0);
+        opacity:1;
+    }
+    to{
+        transform: translateY(-110vh);
+        opacity:0;
+    }
+}
+</style>
 
 </body>
 </html>
