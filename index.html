@@ -169,6 +169,11 @@ footer{
 </head>
 
 <body>
+<!-- LEFT FLOATING HEART COLUMN -->
+<div class="left-hearts">
+  ❤️<br>💖<br>💕<br>💘<br>❤️<br>💖<br>💕<br>💘<br>❤️<br>💖<br>💕<br>💘
+</div>
+
 
 <div id="countdown"></div>
 <div class="top-heart"></div>
@@ -433,50 +438,28 @@ setInterval(() => {
         opacity:0;
     }
 }
-</style>
-<!-- LEFT SIDE FLOATING HEARTS -->
-<style>
 .left-hearts{
-    position:fixed;
-    left:10px;
-    bottom:0;
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    z-index:999;
+  position:fixed;
+  left:10px;
+  top:0;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+  font-size:28px;
+  z-index:5;
+  pointer-events:none;
+  animation:floatHearts 4s infinite ease-in-out;
 }
 
-.left-hearts span{
-    font-size:22px;
-    animation: floatHeart 3s linear infinite;
+@keyframes floatHearts{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+  100%{transform:translateY(0);}
 }
 
-@keyframes floatHeart{
-    0%{
-        transform: translateY(0);
-        opacity:1;
-    }
-    100%{
-        transform: translateY(-100vh);
-        opacity:0;
-    }
-}
 </style>
 
-<div class="left-hearts" id="leftHearts"></div>
-
-<script>
-setInterval(()=>{
-   const heart=document.createElement("span");
-   heart.innerHTML="❤️";
-   document.getElementById("leftHearts").appendChild(heart);
-
-   setTimeout(()=>{
-      heart.remove();
-   },3000);
-
-},500);
-</script>
 
 </body>
 </html>
