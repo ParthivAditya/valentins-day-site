@@ -164,16 +164,49 @@ footer{
     opacity:0;
   }
 }
+/* Left side vertical hearts */
+.left-hearts{
+  position:fixed;
+  left:12px;
+  top:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+  align-items:center;
+  z-index:2;
+}
+
+.left-hearts span{
+  font-size:28px;
+  animation:heartFloat 3s ease-in-out infinite alternate;
+}
+
+.left-hearts span:nth-child(even){
+  animation-delay:1.5s;
+}
+
+@keyframes heartFloat{
+  from{ transform:translateY(0); }
+  to{ transform:translateY(-12px); }
+}
 
 </style>
 </head>
 
 <body>
-<!-- LEFT FLOATING HEART COLUMN -->
 <div class="left-hearts">
-  ❤️<br>💖<br>💕<br>💘<br>❤️<br>💖<br>💕<br>💘<br>❤️<br>💖<br>💕<br>💘
+  <span>❤️</span>
+  <span>❤️</span>
+  <span>❤️</span>
+  <span>❤️</span>
+  <span>❤️</span>
+  <span>❤️</span>
+  <span>❤️</span>
+  <span>❤️</span>
+  <span>❤️</span>
+  <span>❤️</span>
 </div>
-
 
 <div id="countdown"></div>
 <div class="top-heart"></div>
@@ -398,74 +431,6 @@ function valentineFinalSurprise(){
 }
 valentineFinalSurprise();
 
-</script>
-<script>
-/* floating hearts */
-setInterval(() => {
-
-    const heart = document.createElement("div");
-    heart.innerHTML = "❤️";
-    heart.className = "float-heart";
-    document.body.appendChild(heart);
-
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-
-    setTimeout(() => {
-        heart.remove();
-    }, 6000);
-
-}, 400);
-</script>
-
-<style>
-.float-heart{
-    position:fixed;
-    bottom:-20px;
-    z-index:0;
-    pointer-events:none;
-    animation: floatUp linear forwards;
-}
-
-@keyframes floatUp{
-    from{
-        transform: translateY(0);
-        opacity:1;
-    }
-    to{
-        transform: translateY(-110vh);
-        opacity:0;
-    }
-}
-/* floating hearts */
-.heart{
-    position:fixed;
-    bottom:-10px;
-    font-size:24px;
-    animation:floatUp 6s linear infinite;
-}
-
-@keyframes floatUp{
-    0%{transform:translateY(0); opacity:1;}
-    100%{transform:translateY(-800px); opacity:0;}
-}
-
-</style>
-
-<script>
-setInterval(() => {
-    let heart = document.createElement("div");
-    heart.innerHTML = "❤️";
-    heart.classList.add("heart");
-    heart.style.left = Math.random()*100 + "vw";
-    heart.style.fontSize = (20 + Math.random()*30) + "px";
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{
-        heart.remove();
-    },6000);
-},300);
 </script>
 
 </body>
