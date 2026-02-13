@@ -260,6 +260,25 @@ footer{
       border:1px solid #ffb3b3;padding:10px;font-family:Poppins;resize:none;"></textarea>
   </div>
 </div>
+<!-- NEW IMAGE PAGE -->
+<div class="page locked" data-date="2026-02-14">
+  <div class="page-title">📸 Our Memory</div>
+  <div class="page-timer">Unlocks on Valentine’s Day ❤️</div>
+
+  <div class="page-content">
+    Our beautiful moment together 💖<br><br>
+
+    <img src="yourimage.jpg"
+    style="width:100%;
+    max-width:250px;
+    border-radius:18px;
+    box-shadow:0 10px 20px rgba(0,0,0,.25);
+    margin-top:10px;">
+    
+    <br><br>
+    Forever us ❤️
+  </div>
+</div>
 
 </div>
 
@@ -539,6 +558,22 @@ footer{
       border:1px solid #ffb3b3;padding:10px;font-family:Poppins;"></textarea>
   </div>
 </div>
+  <!-- SECRET LOVE PAGE -->
+<div class="page locked" data-date="2026-02-14">
+  <div class="page-title">💞 Our Memory</div>
+  <div class="page-timer">Unlocks on Valentine’s Day ❤️</div>
+
+  <div class="page-content">
+    The best thing in my life is you ❤️<br><br>
+
+    <img src="https://ibb.co/RG71CDSY"
+    style="width:100%;max-width:260px;border-radius:18px;
+    box-shadow:0 15px 30px rgba(0,0,0,.3);">
+
+    <br><br>
+    I will choose you in every lifetime 💍
+  </div>
+</div>
 
 </div>
 
@@ -612,6 +647,35 @@ const today=new Date().toISOString().slice(0,10);
 if(today==="2026-02-07"){
   startRoseRain();
 }
+  function valentineSurprise(){
+  const today=new Date().toISOString().slice(0,10);
+  if(today==="2026-02-14"){
+    setTimeout(()=>{
+      alert("Happy Valentine’s Day My Love ❤️\nYou are mine forever 💍");
+    },2000);
+  }
+}
+valentineSurprise();
+
+</script>
+<!-- Romantic music -->
+<audio id="bgMusic" autoplay loop>
+  <source src="https://www2.cs.uic.edu/~i101/SoundFiles/CanonInD.mp3" type="audio/mp3">
+</audio>
+
+<script>
+document.body.addEventListener("click",()=>{
+  document.getElementById("bgMusic").play();
+});
+  window.onload = () => {
+  setTimeout(()=>{
+    alert("Hey my love ❤️\nOpen each page daily…\nA surprise is waiting for you 😘");
+  },800);
+
+  const t=document.querySelector("textarea");
+  if(t) t.value=localStorage.getItem("loveComment")||"";
+};
+
 </script>
 
 </body>
