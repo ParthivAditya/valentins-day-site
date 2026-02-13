@@ -164,49 +164,31 @@ footer{
     opacity:0;
   }
 }
-/* Left side vertical hearts */
-.left-hearts{
+/* Left side floating hearts (upward) */
+.left-float-heart{
   position:fixed;
-  left:12px;
-  top:0;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-evenly;
-  align-items:center;
+  left:15px;              /* keep them on left */
+  bottom:-30px;
+  font-size:22px;
   z-index:2;
+  animation:leftHeartUp linear forwards;
 }
 
-.left-hearts span{
-  font-size:28px;
-  animation:heartFloat 3s ease-in-out infinite alternate;
-}
-
-.left-hearts span:nth-child(even){
-  animation-delay:1.5s;
-}
-
-@keyframes heartFloat{
-  from{ transform:translateY(0); }
-  to{ transform:translateY(-12px); }
+@keyframes leftHeartUp{
+  from{
+    transform:translateY(0);
+    opacity:1;
+  }
+  to{
+    transform:translateY(-110vh);
+    opacity:0.8;
+  }
 }
 
 </style>
 </head>
 
 <body>
-<div class="left-hearts">
-  <span>❤️</span>
-  <span>❤️</span>
-  <span>❤️</span>
-  <span>❤️</span>
-  <span>❤️</span>
-  <span>❤️</span>
-  <span>❤️</span>
-  <span>❤️</span>
-  <span>❤️</span>
-  <span>❤️</span>
-</div>
 
 <div id="countdown"></div>
 <div class="top-heart"></div>
@@ -430,6 +412,22 @@ function valentineFinalSurprise(){
   }
 }
 valentineFinalSurprise();
+/* Left side moving hearts like screenshot */
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="left-float-heart";
+  heart.innerText="❤️";
+
+  // small horizontal variation so they don’t overlap perfectly
+  heart.style.left = (10 + Math.random()*25) + "px";
+
+  heart.style.fontSize = (18 + Math.random()*12) + "px";
+  heart.style.animationDuration = (5 + Math.random()*4) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(()=>heart.remove(),9000);
+},600);
 
 </script>
 
